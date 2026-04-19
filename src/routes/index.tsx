@@ -1,26 +1,44 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Navbar } from "@/components/site/Navbar";
+import { Hero } from "@/components/site/Hero";
+import { Collections } from "@/components/site/Collections";
+import { Gallery } from "@/components/site/Gallery";
+import { Offer } from "@/components/site/Offer";
+import { Story } from "@/components/site/Story";
+import { Footer } from "@/components/site/Footer";
+import { useReveal } from "@/hooks/use-reveal";
 
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Vineeth Silver Jewellery — Timeless Silver, Rooted in Elegance" },
+      {
+        name: "description",
+        content:
+          "An heirloom atelier of hand-crafted silver jewellery. Limited collections, cinematic craftsmanship, quiet luxury.",
+      },
+      { property: "og:title", content: "Vineeth Silver Jewellery" },
+      {
+        property: "og:description",
+        content: "Heirloom silver, hand-finished. Timeless pieces from the Vineeth atelier.",
+      },
+      { property: "og:type", content: "website" },
+    ],
+  }),
+  component: Home,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
+function Home() {
+  useReveal();
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="min-h-screen">
+      <Navbar />
+      <Hero />
+      <Collections />
+      <Gallery />
+      <Offer />
+      <Story />
+      <Footer />
+    </main>
   );
-}
-
-function Index() {
-  return <PlaceholderIndex />;
 }
