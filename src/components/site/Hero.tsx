@@ -4,14 +4,17 @@ export function Hero() {
   return (
     <section className="relative h-[100svh] min-h-[680px] w-full overflow-hidden bg-[var(--chocolate)]">
       {/* Background image */}
-      <div className="absolute inset-0 animate-slow-zoom">
-        <img
-          src={heroImg}
-          alt="Model wearing emerald and diamond silver necklace"
-          className="h-full w-full object-cover"
-          style={{ objectPosition: "75% 30%", transform: "scale(0.88)", transformOrigin: "right center" }}
-        />
-      </div>
+      <div
+        className="absolute inset-0 animate-slow-zoom bg-no-repeat"
+        style={{
+          backgroundImage: `url(${heroImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "right 0% top 35%",
+          backgroundColor: "var(--chocolate)",
+        }}
+        role="img"
+        aria-label="Model wearing emerald and diamond silver necklace"
+      />
 
       {/* Gradient overlays */}
       <div
