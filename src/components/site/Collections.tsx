@@ -81,7 +81,7 @@ export function Collections() {
                   src={item.img}
                   alt={item.name}
                   loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                  className="absolute inset-0 h-full w-full object-contain object-center p-6 md:p-10 transition-transform duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                 />
                 {/* gradient bottom */}
                 <div
