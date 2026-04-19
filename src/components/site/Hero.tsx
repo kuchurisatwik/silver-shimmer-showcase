@@ -8,7 +8,7 @@ export function Hero() {
         className="absolute inset-0 animate-slow-zoom bg-no-repeat"
         style={{
           backgroundImage: `url(${heroImg})`,
-          backgroundSize: "cover",
+          backgroundSize: "auto 110%",
           backgroundPosition: "right 0% top 35%",
           backgroundColor: "var(--chocolate)",
         }}
