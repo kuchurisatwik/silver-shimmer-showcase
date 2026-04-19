@@ -1,18 +1,15 @@
+import heroImg from "@/assets/hero-editorial.png";
+
 export function Hero() {
   return (
     <section className="relative h-[100svh] min-h-[680px] w-full overflow-hidden bg-[var(--chocolate)]">
-      {/* Background video */}
+      {/* Background image */}
       <div className="absolute inset-0 animate-slow-zoom">
-        <video
-          className="h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-        >
-          <source src="/videos/hero-editorial.mp4" type="video/mp4" />
-          <source src="/videos/hero.mp4" type="video/mp4" />
-        </video>
+        <img
+          src={heroImg}
+          alt="Model wearing emerald and diamond silver necklace"
+          className="h-full w-full object-cover object-right"
+        />
       </div>
 
       {/* Gradient overlays */}

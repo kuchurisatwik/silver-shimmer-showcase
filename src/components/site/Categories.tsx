@@ -107,7 +107,7 @@ export function Categories() {
                   src={c.img}
                   alt={c.name}
                   loading="lazy"
-                  className={`absolute inset-0 h-full w-full object-cover transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  className={`absolute inset-0 h-full w-full object-contain object-center p-8 md:p-12 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     active === i ? "opacity-100 scale-100" : "opacity-0 scale-105"
                   }`}
                 />
