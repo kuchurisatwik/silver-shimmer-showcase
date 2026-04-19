@@ -36,44 +36,44 @@ export function Story() {
                 loading="lazy"
               />
             </div>
-            {/* Est. badge */}
+            {/* Trust badge */}
             <div
-              className="hidden md:flex absolute -top-6 -left-6 w-32 h-32 rounded-full items-center justify-center flex-col"
+              className="hidden md:flex absolute -top-6 -left-6 w-32 h-32 rounded-full items-center justify-center flex-col text-center px-3"
               style={{ background: "var(--cream)", boxShadow: "var(--shadow-soft)" }}
             >
-              <p className="font-display italic text-3xl leading-none">Est.</p>
-              <p className="font-display text-3xl leading-none mt-1">1978</p>
+              <p className="font-display italic text-2xl leading-none">Pure</p>
+              <p className="font-display text-2xl leading-none mt-1">925 Silver</p>
             </div>
           </div>
 
           {/* Text — right */}
           <div className="col-span-12 lg:col-span-5 reveal" style={{ transitionDelay: "150ms" }}>
             <p className="font-display italic text-2xl md:text-3xl leading-[1.4]" style={{ color: "var(--chocolate)" }}>
-              For nearly five decades, Vineeth has shaped silver by hand —
-              slowly, with the patience that machines cannot mimic.
+              Jewellery you can trust — every piece hallmarked, every stone
+              honest, every promise kept in pure silver.
             </p>
 
             <div className="hairline mt-10 mb-8" />
 
             <div className="space-y-5 text-[15px] leading-[1.9]" style={{ color: "var(--muted-foreground)" }}>
               <p>
-                Every clasp, every prong, every polished curve carries the
-                imprint of an artisan who has spent a lifetime listening to the
-                metal.
+                Trust is the quietest metal we work with. Each piece is
+                hallmarked, weight-verified, and finished by hands that have
+                known silver longer than they have known anything else.
               </p>
               <p>
-                We do not chase trends. We chase a single, unhurried idea —
-                that silver, when treated with reverence, becomes something
-                more than ornament. It becomes inheritance.
+                We believe a jewel should outlive the moment it was bought in.
+                That is why every clasp holds, every stone sits true, and every
+                Vineeth piece leaves the atelier ready to become an heirloom.
               </p>
             </div>
 
             {/* Stats */}
             <div className="mt-12 grid grid-cols-3 gap-4 pt-8 border-t" style={{ borderColor: "color-mix(in oklab, var(--chocolate) 14%, transparent)" }}>
               {[
-                { n: "47", l: "Years" },
-                { n: "1200+", l: "Pieces" },
-                { n: "100%", l: "Hand-set" },
+                { n: "925", l: "Pure Silver" },
+                { n: "100%", l: "Hallmarked" },
+                { n: "∞", l: "Heirloom" },
               ].map((s) => (
                 <div key={s.l}>
                   <p className="font-display text-4xl md:text-5xl leading-none">{s.n}</p>
