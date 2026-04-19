@@ -1,7 +1,7 @@
 export function Hero() {
   return (
-    <section className="relative h-screen w-full overflow-hidden">
-      {/* Background video with slow zoom */}
+    <section className="relative h-[100svh] min-h-[680px] w-full overflow-hidden bg-[var(--chocolate)]">
+      {/* Background video */}
       <div className="absolute inset-0 animate-slow-zoom">
         <video
           className="h-full w-full object-cover"
@@ -9,87 +9,115 @@ export function Hero() {
           muted
           loop
           playsInline
-          poster=""
         >
+          <source src="/videos/hero-editorial.mp4" type="video/mp4" />
           <source src="/videos/hero.mp4" type="video/mp4" />
         </video>
       </div>
 
-      {/* Cinematic gradient overlays */}
+      {/* Gradient overlays */}
       <div
         className="absolute inset-0"
         style={{ background: "var(--gradient-hero)" }}
       />
-      <div className="absolute inset-0 bg-black/35" />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, color-mix(in oklab, var(--chocolate) 35%, transparent) 0%, transparent 35%, transparent 60%, color-mix(in oklab, var(--chocolate) 70%, transparent) 100%)",
+        }}
+      />
+      {/* Grain */}
+      <div className="absolute inset-0 grain pointer-events-none" />
 
-      {/* Content */}
-      <div className="relative z-10 h-full container-luxe flex items-center">
-        <div className="max-w-2xl">
+      {/* Top meta row */}
+      <div className="absolute top-24 left-0 right-0 z-10">
+        <div className="container-wide flex items-center justify-between text-[10px] tracking-[0.4em] uppercase animate-fade-in" style={{ animationDelay: "0.3s", color: "color-mix(in oklab, var(--cream) 70%, transparent)" }}>
+          <span>Vol. 04 — Spring Edit</span>
+          <span className="hidden sm:block">Hyderabad · Est. 1978</span>
+        </div>
+      </div>
+
+      {/* Oversized cropped headline — off-center */}
+      <div className="relative z-10 h-full container-wide flex flex-col justify-end pb-28 md:pb-36">
+        <div className="max-w-[1100px]">
           <p
-            className="eyebrow animate-fade-in"
-            style={{ animationDelay: "0.2s", color: "var(--silver)" }}
+            className="eyebrow animate-fade-in mb-6"
+            style={{ animationDelay: "0.4s", color: "var(--silver)" }}
           >
-            Vineeth · Silver Jewellery
+            Maison Vineeth — Silver Couture
           </p>
-          <div className="hairline mt-6 mb-8 animate-fade-in" style={{ animationDelay: "0.4s" }} />
-          <h1
-            className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.02] text-cream"
-            style={{ color: "var(--cream)" }}
-          >
-            <span className="block animate-letter-reveal" style={{ animationDelay: "0.5s" }}>
-              Timeless Silver
-            </span>
-            <span
-              className="block italic font-light text-[var(--taupe)] animate-letter-reveal"
-              style={{ animationDelay: "0.85s", color: "var(--taupe)" }}
-            >
-              Rooted in Elegance
-            </span>
-          </h1>
 
-          <p
-            className="mt-8 max-w-md text-base md:text-lg leading-relaxed animate-fade-up"
+          <h1 className="display-xl animate-letter-reveal" style={{ color: "var(--cream)", animationDelay: "0.5s" }}>
+            Timeless
+          </h1>
+          <h1
+            className="display-xl italic font-light animate-letter-reveal -mt-2 md:-mt-4 pl-[6vw] md:pl-[14vw]"
             style={{
-              animationDelay: "1.3s",
-              color: "color-mix(in oklab, var(--cream) 80%, transparent)",
+              color: "color-mix(in oklab, var(--cream) 92%, var(--taupe))",
+              animationDelay: "0.85s",
             }}
           >
-            Heirloom craftsmanship reimagined for the modern muse — each piece a
-            quiet conversation between heritage and form.
-          </p>
+            Silver.
+          </h1>
 
-          <div className="mt-10 flex items-center gap-6 animate-fade-up" style={{ animationDelay: "1.6s" }}>
-            <a
-              href="#collections"
-              className="group inline-flex items-center gap-3 px-8 py-4 text-[12px] tracking-[0.32em] uppercase bg-cream text-chocolate hover:bg-[var(--silver)] transition-colors duration-500"
-              style={{ background: "var(--cream)", color: "var(--chocolate)" }}
+          <div className="mt-8 md:mt-12 grid grid-cols-12 gap-6 items-end">
+            <p
+              className="col-span-12 md:col-span-5 md:col-start-2 text-sm md:text-[15px] leading-[1.85] animate-fade-up"
+              style={{
+                animationDelay: "1.3s",
+                color: "color-mix(in oklab, var(--cream) 78%, transparent)",
+              }}
             >
-              Explore Collection
-              <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
-            </a>
-            <a
-              href="#about"
-              className="text-[12px] tracking-[0.28em] uppercase text-cream/80 hover:text-cream transition-colors"
-              style={{ color: "color-mix(in oklab, var(--cream) 80%, transparent)" }}
-            >
-              Our Story
-            </a>
+              An intimate maison of hand-finished silver and quiet adornment —
+              created for those who value restraint, weight and the unhurried
+              gleam of heirloom metalwork.
+            </p>
+
+            <div className="col-span-12 md:col-span-5 md:col-start-8 flex items-center gap-8 animate-fade-up" style={{ animationDelay: "1.55s" }}>
+              <a
+                href="#collections"
+                className="group inline-flex items-center gap-3 px-7 py-3.5 text-[11px] tracking-[0.32em] uppercase border transition-all duration-500 rounded-full"
+                style={{
+                  color: "var(--cream)",
+                  borderColor: "color-mix(in oklab, var(--cream) 50%, transparent)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "var(--cream)";
+                  e.currentTarget.style.color = "var(--chocolate)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.color = "var(--cream)";
+                }}
+              >
+                Explore Catalogue
+                <span className="transition-transform duration-500 group-hover:translate-x-1">→</span>
+              </a>
+              <a
+                href="#about"
+                className="text-[11px] tracking-[0.32em] uppercase italic"
+                style={{ color: "color-mix(in oklab, var(--cream) 70%, transparent)", fontFamily: "var(--font-display)" }}
+              >
+                Our Story
+              </a>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll cue */}
       <div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3 animate-fade-in"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3 animate-fade-in"
         style={{ animationDelay: "2s" }}
       >
         <span
-          className="text-[10px] tracking-[0.4em] uppercase"
-          style={{ color: "color-mix(in oklab, var(--cream) 70%, transparent)" }}
+          className="text-[9px] tracking-[0.5em] uppercase"
+          style={{ color: "color-mix(in oklab, var(--cream) 60%, transparent)" }}
         >
-          Scroll
+          01 / 04
         </span>
-        <span className="block w-px h-12 bg-gradient-to-b from-[var(--silver)] to-transparent" />
+        <span className="block w-px h-10 bg-gradient-to-b from-[var(--silver)] to-transparent" />
       </div>
     </section>
   );

@@ -39,12 +39,12 @@ export function Navbar() {
           </span>
         </Link>
 
-        <ul className="hidden md:flex items-center gap-10">
+        <ul className="hidden md:flex items-center gap-9">
           {links.map((l) => (
             <li key={l.label}>
               <a
                 href={l.href}
-                className="text-[13px] tracking-[0.22em] uppercase text-cream/85 hover:text-cream transition-colors relative group"
+                className="text-[11px] tracking-[0.32em] uppercase transition-colors relative group"
                 style={{ color: "color-mix(in oklab, var(--cream) 85%, transparent)" }}
               >
                 {l.label}
@@ -56,7 +56,7 @@ export function Navbar() {
 
         <a
           href="#contact"
-          className="hidden md:inline-flex items-center text-[12px] tracking-[0.28em] uppercase border border-white/30 text-cream px-5 py-2.5 hover:bg-white/10 transition-colors"
+          className="hidden md:inline-flex items-center text-[11px] tracking-[0.32em] uppercase border border-white/30 px-5 py-2.5 rounded-full hover:bg-white/10 transition-colors"
           style={{ color: "var(--cream)" }}
         >
           Enquire
