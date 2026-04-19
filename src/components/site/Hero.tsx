@@ -8,7 +8,8 @@ export function Hero() {
         <img
           src={heroImg}
           alt="Model wearing emerald and diamond silver necklace"
-          className="h-full w-full object-cover object-right"
+          className="h-full w-full object-cover"
+          style={{ objectPosition: "75% 30%", transform: "scale(0.88)", transformOrigin: "right center" }}
         />
       </div>
 
