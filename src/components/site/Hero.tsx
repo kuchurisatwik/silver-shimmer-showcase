@@ -8,12 +8,12 @@ export function Hero() {
         className="absolute inset-0 animate-slow-zoom bg-no-repeat"
         style={{
           backgroundImage: `url(${heroImg})`,
-          backgroundSize: "auto 95%",
-          backgroundPosition: "right 0% bottom 0%",
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
           backgroundColor: "var(--chocolate)",
         }}
         role="img"
-        aria-label="Model wearing emerald and diamond silver necklace"
+        aria-label="Emerald and diamond silver necklace on flowing silk"
       />
 
       {/* Gradient overlays */}
