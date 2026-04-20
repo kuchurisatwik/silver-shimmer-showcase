@@ -318,3 +318,53 @@
 @media (min-width: 1024px) {
   .masonry { column-count: 3; }
 }
+
+/* ===== Shiny Enquire button ===== */
+.enquire-btn {
+  background: linear-gradient(
+    135deg,
+    #f5f1eb 0%,
+    #e8dfcf 25%,
+    #ffffff 50%,
+    #d8c9ad 75%,
+    #f5f1eb 100%
+  );
+  background-size: 200% 200%;
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--silver) 50%, transparent),
+    0 8px 24px -6px color-mix(in oklab, var(--silver) 40%, transparent),
+    0 0 30px -8px color-mix(in oklab, var(--cream) 60%, transparent);
+  animation: enquire-shimmer 6s ease-in-out infinite;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.enquire-btn:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--silver) 80%, transparent),
+    0 12px 32px -6px color-mix(in oklab, var(--silver) 60%, transparent),
+    0 0 50px -6px color-mix(in oklab, var(--cream) 80%, transparent);
+}
+.enquire-sheen::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.65) 50%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  animation: enquire-sweep 3.5s ease-in-out infinite;
+}
+@keyframes enquire-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes enquire-sweep {
+  0% { left: -75%; }
+  60%, 100% { left: 125%; }
+}
