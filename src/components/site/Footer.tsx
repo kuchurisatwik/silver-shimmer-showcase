@@ -31,8 +31,8 @@ export function Footer() {
           </div>
 
           <div className="md:col-span-3">
-            <p className="eyebrow mb-5" style={{ color: "var(--silver)" }}>Visit</p>
-            <p className="text-sm leading-relaxed" style={{ color: "color-mix(in oklab, var(--cream) 75%, transparent)" }}>
+            <p className="font-display italic text-xl mb-5" style={{ color: "var(--silver)" }}>Visit</p>
+            <p className="font-sans text-sm leading-relaxed" style={{ color: "color-mix(in oklab, var(--cream) 75%, transparent)" }}>
               The Vineeth Atelier
               <br />
               Jubilee Hills, Hyderabad
@@ -42,8 +42,8 @@ export function Footer() {
           </div>
 
           <div className="md:col-span-2">
-            <p className="eyebrow mb-5" style={{ color: "var(--silver)" }}>Explore</p>
-            <ul className="space-y-3 text-sm">
+            <p className="font-display italic text-xl mb-5" style={{ color: "var(--silver)" }}>Explore</p>
+            <ul className="space-y-3 font-sans text-sm">
               {["Collections", "Gallery", "Atelier", "Journal"].map((l) => (
                 <li key={l}>
                   <a
@@ -59,8 +59,8 @@ export function Footer() {
           </div>
 
           <div className="md:col-span-2">
-            <p className="eyebrow mb-5" style={{ color: "var(--silver)" }}>Connect</p>
-            <ul className="space-y-3 text-sm">
+            <p className="font-display italic text-xl mb-5" style={{ color: "var(--silver)" }}>Connect</p>
+            <ul className="space-y-3 font-sans text-sm">
               {["Instagram", "Pinterest", "Email", "WhatsApp"].map((l) => (
                 <li key={l}>
                   <a
@@ -77,7 +77,7 @@ export function Footer() {
         </div>
 
         <div
-          className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs"
+          className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-sans"
           style={{ color: "color-mix(in oklab, var(--cream) 50%, transparent)" }}
         >
           <p>© {new Date().getFullYear()} Vineeth Silver Jewellery. All rights reserved.</p>
