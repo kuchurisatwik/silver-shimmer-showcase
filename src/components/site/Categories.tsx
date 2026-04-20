@@ -65,7 +65,7 @@ export function Categories() {
                     className="group py-7 cursor-pointer border-t first:border-t-0 transition-colors"
                     style={{ borderColor: "color-mix(in oklab, var(--chocolate) 14%, transparent)" }}
                   >
-                    <div className="flex items-baseline gap-6">
+                    <div className="flex items-baseline gap-3 sm:gap-6 flex-wrap">
                       <span
                         className="text-[10px] tracking-[0.4em] uppercase shrink-0"
                         style={{ color: isActive ? "var(--chocolate)" : "var(--taupe)" }}
@@ -73,19 +73,19 @@ export function Categories() {
                         0{i + 1}
                       </span>
                       <h3
-                        className={`font-display text-3xl md:text-5xl leading-none transition-all duration-500 ${
+                        className={`font-display text-2xl sm:text-3xl md:text-5xl leading-none transition-all duration-500 ${
                           isActive ? "translate-x-2" : "opacity-70"
                         }`}
                         style={{ color: "var(--chocolate)" }}
                       >
                         {c.name} <span className="italic">{c.italic}</span>
                       </h3>
-                      <span className="ml-auto text-[10px] tracking-[0.4em] uppercase shrink-0" style={{ color: "var(--taupe)" }}>
+                      <span className="ml-auto text-[9px] sm:text-[10px] tracking-[0.4em] uppercase shrink-0" style={{ color: "var(--taupe)" }}>
                         {c.count}
                       </span>
                     </div>
                     <p
-                      className={`overflow-hidden transition-all duration-700 ease-out text-[15px] leading-[1.8] pl-12 mt-0 ${
+                      className={`overflow-hidden transition-all duration-700 ease-out text-sm sm:text-[15px] leading-[1.8] pl-8 sm:pl-12 mt-0 ${
                         isActive ? "max-h-40 opacity-100 mt-4" : "max-h-0 opacity-0"
                       }`}
                       style={{ color: "var(--muted-foreground)" }}

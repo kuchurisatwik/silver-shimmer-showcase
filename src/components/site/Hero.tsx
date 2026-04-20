@@ -32,8 +32,8 @@ export function Hero() {
       <div className="absolute inset-0 grain pointer-events-none" />
 
       {/* Top meta row */}
-      <div className="absolute top-24 left-0 right-0 z-10">
-        <div className="container-wide flex items-center justify-between text-[10px] tracking-[0.4em] uppercase animate-fade-in" style={{ animationDelay: "0.3s", color: "color-mix(in oklab, var(--cream) 70%, transparent)" }}>
+      <div className="absolute top-20 sm:top-24 left-0 right-0 z-10">
+        <div className="container-wide flex items-center justify-between text-[9px] sm:text-[10px] tracking-[0.32em] sm:tracking-[0.4em] uppercase animate-fade-in" style={{ animationDelay: "0.3s", color: "color-mix(in oklab, var(--cream) 70%, transparent)" }}>
           <span>Vol. 04 — Spring Edit</span>
           <span className="hidden sm:block">Hyderabad · Est. 1978</span>
         </div>
@@ -75,10 +75,10 @@ export function Hero() {
               gleam of heirloom metalwork.
             </p>
 
-            <div className="col-span-12 md:col-span-5 md:col-start-8 flex items-center gap-8 animate-fade-up" style={{ animationDelay: "1.55s" }}>
+            <div className="col-span-12 md:col-span-5 md:col-start-8 flex flex-wrap items-center gap-5 sm:gap-8 animate-fade-up" style={{ animationDelay: "1.55s" }}>
               <a
                 href="#collections"
-                className="group inline-flex items-center gap-3 px-7 py-3.5 text-[11px] tracking-[0.32em] uppercase border transition-all duration-500 rounded-full"
+                className="group inline-flex items-center gap-3 px-5 sm:px-7 py-3 sm:py-3.5 text-[10px] sm:text-[11px] tracking-[0.32em] uppercase border transition-all duration-500 rounded-full"
                 style={{
                   color: "var(--cream)",
                   borderColor: "color-mix(in oklab, var(--cream) 50%, transparent)",
@@ -97,7 +97,7 @@ export function Hero() {
               </a>
               <a
                 href="#about"
-                className="text-[11px] tracking-[0.32em] uppercase italic"
+                className="text-[10px] sm:text-[11px] tracking-[0.32em] uppercase italic"
                 style={{ color: "color-mix(in oklab, var(--cream) 70%, transparent)", fontFamily: "var(--font-display)" }}
               >
                 Our Story
