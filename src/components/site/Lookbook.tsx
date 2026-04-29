@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import logo from "@/assets/vineeth-silver-logo.png";
+import logo from "@/assets/vineeth-silver-hero-logo.png";
 import { useReveal } from "@/hooks/use-reveal";
 
 const imageModules = import.meta.glob("../../assets/lookbook/*.webp", {
@@ -8,18 +8,20 @@ const imageModules = import.meta.glob("../../assets/lookbook/*.webp", {
 }) as Record<string, string>;
 
 const layout = [
-  "lookbook-large md:col-span-7 md:row-span-2",
-  "lookbook-medium md:col-span-5",
-  "lookbook-small md:col-span-3",
+  "lookbook-hero-frame md:col-span-7 md:row-span-2 md:mt-10",
+  "lookbook-portrait md:col-span-5",
+  "lookbook-detail md:col-span-3 md:mt-24",
   "lookbook-tall md:col-span-4 md:row-span-2",
-  "lookbook-medium md:col-span-5",
+  "lookbook-portrait md:col-span-5 md:mt-14",
   "lookbook-wide md:col-span-8",
-  "lookbook-small md:col-span-4",
+  "lookbook-detail md:col-span-4 md:mt-20",
   "lookbook-large md:col-span-6 md:row-span-2",
-  "lookbook-medium md:col-span-6",
-  "lookbook-small md:col-span-3",
-  "lookbook-tall md:col-span-5 md:row-span-2",
+  "lookbook-portrait md:col-span-6 md:mt-12",
+  "lookbook-detail md:col-span-3",
+  "lookbook-tall md:col-span-5 md:row-span-2 md:mt-16",
   "lookbook-medium md:col-span-4",
+  "lookbook-wide md:col-span-7 md:mt-8",
+  "lookbook-detail md:col-span-5 md:mt-28",
 ];
 
 const captions = [
@@ -74,37 +76,48 @@ export function Lookbook() {
 
   return (
     <main className="lookbook-page min-h-screen">
-      <section className="relative min-h-[92svh] overflow-hidden px-5 pb-16 pt-24 sm:px-8 md:px-12 md:pt-12">
-        <div className="absolute inset-0 grain opacity-70" />
+      <section className="lookbook-hero relative min-h-[96svh] overflow-hidden px-5 pb-16 pt-24 sm:px-8 md:px-12 md:pt-10">
+        <div className="absolute inset-0 grain opacity-60" />
+        <div className="lookbook-hero-orb" aria-hidden />
         {heroImage && (
-          <img
-            src={heroImage}
-            alt="Vineeth Silver editorial jewellery campaign"
-            className="absolute inset-y-0 right-0 h-full w-full object-cover object-center opacity-[0.28] mix-blend-multiply md:w-[58%]"
-          />
+          <div className="lookbook-hero-image-wrap" aria-hidden>
+            <img
+              src={heroImage}
+              alt=""
+              className="h-full w-full object-cover object-center"
+            />
+          </div>
         )}
-        <div className="relative z-10 mx-auto flex min-h-[78svh] max-w-[1500px] flex-col justify-between">
-          <div className="flex justify-end">
+        <div className="relative z-10 mx-auto grid min-h-[82svh] max-w-[1500px] grid-cols-12 content-between gap-y-10">
+          <div className="col-span-12 flex items-start justify-between gap-6 pt-1">
+            <p className="eyebrow max-w-[220px] leading-loose">Editorial Lookbook<br />Vineeth Silver Jewellery</p>
             <img
               src={logo}
               alt="Vineeth Silver Jewellery"
-              className="h-20 w-20 object-contain opacity-80 mix-blend-multiply sm:h-24 sm:w-24 md:h-28 md:w-28"
+              className="lookbook-hero-logo"
             />
           </div>
 
-          <div className="max-w-[940px] pb-6">
-            <p className="eyebrow mb-7">Editorial Lookbook</p>
-            <h1 className="font-display text-[clamp(56px,12vw,168px)] leading-[0.86] text-[var(--chocolate)]">
+          <div className="col-span-12 pb-6 md:col-span-9 lg:col-span-8">
+            <p className="mb-8 font-display text-[clamp(20px,2.4vw,34px)] italic leading-tight text-[color-mix(in_oklab,var(--chocolate)_68%,transparent)]">
+              A refined visual archive.
+            </p>
+            <h1 className="font-display text-[clamp(62px,13vw,176px)] leading-[0.82] text-[var(--chocolate)]">
               Silver in<br />motion.
             </h1>
-            <p className="mt-8 max-w-[520px] text-[15px] leading-[1.9] text-[var(--muted-foreground)] md:ml-[18vw]">
-              A campaign edit of model-worn jewels, close details and quiet heirloom light — composed with space, rhythm and restraint.
-            </p>
+            <div className="mt-8 grid max-w-[760px] grid-cols-12 gap-6 md:ml-[12vw] md:mt-10">
+              <p className="col-span-12 text-[15px] leading-[1.9] text-[var(--muted-foreground)] md:col-span-8">
+                Model-worn heirlooms, close details and quiet ceremonial light — composed as a campaign story with space, rhythm and restraint.
+              </p>
+              <p className="col-span-12 hidden text-[10px] uppercase tracking-[0.34em] text-[color-mix(in_oklab,var(--chocolate)_48%,transparent)] md:col-span-4 md:block">
+                28 frames<br />Warm silver<br />Campaign edit
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="collections" className="relative px-5 py-14 sm:px-8 md:px-12 md:py-24">
+      <section id="collections" className="lookbook-archive relative px-5 py-16 sm:px-8 md:px-12 md:py-28">
         {highlightImage && (
           <button
             type="button"
@@ -117,18 +130,23 @@ export function Lookbook() {
         )}
 
         <div className="mx-auto max-w-[1500px]">
-          <div className="mb-14 grid grid-cols-12 gap-6 md:mb-24">
+          <div className="mb-16 grid grid-cols-12 gap-6 md:mb-28">
             <div className="col-span-12 md:col-span-3">
               <p className="eyebrow">Twenty eight frames</p>
             </div>
             <div className="col-span-12 md:col-span-7">
               <h2 className="display-lg text-[var(--chocolate)]">
-                A refined visual archive of pieces worn close to skin and light.
+                Pieces worn close to skin, ceremony and light.
               </h2>
+            </div>
+            <div className="col-span-12 md:col-span-2 md:pt-5">
+              <p className="text-[13px] leading-[1.9] text-[color-mix(in_oklab,var(--chocolate)_55%,transparent)]">
+                An editorial flow of portrait, detail, and heirloom shimmer.
+              </p>
             </div>
           </div>
 
-          <div className="lookbook-grid grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-7">
+          <div className="lookbook-grid grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-8">
             {images.map((image, index) => (
               <button
                 key={image.src}
