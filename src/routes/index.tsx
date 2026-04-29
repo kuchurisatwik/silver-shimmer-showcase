@@ -7,6 +7,7 @@ import { Gallery } from "@/components/site/Gallery";
 import { Offer } from "@/components/site/Offer";
 import { Story } from "@/components/site/Story";
 import { Footer } from "@/components/site/Footer";
+import { useReveal } from "@/hooks/use-reveal";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,6 +30,8 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
+  useReveal();
+
   return (
     <>
       <Navbar />
