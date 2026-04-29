@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 const links = [
-  { label: "Collections", href: "#collections" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Collections", href: "/collections", id: "collections" },
+  { label: "Gallery", href: "/#gallery", id: "gallery" },
+  { label: "About", href: "/#about", id: "about" },
+  { label: "Contact", href: "/#contact", id: "contact" },
 ];
 
 export function Navbar() {
@@ -24,8 +24,12 @@ export function Navbar() {
   // Track which section is in view to highlight in the rail
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (window.location.pathname === "/collections") {
+      setActiveIdx(0);
+      return;
+    }
     const sections = links
-      .map((l) => document.querySelector(l.href))
+      .map((l) => document.querySelector(`#${l.id}`))
       .filter((el): el is Element => !!el);
     if (!sections.length) return;
 
@@ -33,7 +37,7 @@ export function Navbar() {
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
-            const idx = links.findIndex((l) => l.href === `#${e.target.id}`);
+            const idx = links.findIndex((l) => l.id === e.target.id);
             if (idx >= 0) setActiveIdx(idx);
           }
         });
