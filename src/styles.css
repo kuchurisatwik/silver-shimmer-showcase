@@ -78,6 +78,7 @@
   --taupe: oklch(0.68 0.018 70);       /* #AC9C8D */
   --beige: oklch(0.92 0.012 75);       /* #EDE7E0 */
   --cream: oklch(0.95 0.01 75);        /* #F5F1EB */
+  --champagne: oklch(0.94 0.018 75);   /* warm ivory editorial base */
   --silver: oklch(0.80 0.003 250);     /* #C0C0C0 */
 
   /* Semantic mapping — luxury cream base */
@@ -317,6 +318,75 @@
 }
 @media (min-width: 1024px) {
   .masonry { column-count: 3; }
+}
+
+/* Editorial lookbook */
+.lookbook-page {
+  background: var(--champagne);
+  color: var(--chocolate);
+}
+.lookbook-grid {
+  grid-auto-flow: dense;
+  grid-auto-rows: minmax(92px, auto);
+}
+.lookbook-frame {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  min-height: 360px;
+  background: var(--beige);
+  text-align: left;
+  box-shadow: 0 24px 70px -45px color-mix(in oklab, var(--chocolate) 42%, transparent);
+}
+.lookbook-large { min-height: clamp(560px, 72vw, 940px); }
+.lookbook-medium { min-height: clamp(390px, 44vw, 640px); }
+.lookbook-small { min-height: clamp(300px, 32vw, 460px); }
+.lookbook-tall { min-height: clamp(640px, 76vw, 980px); }
+.lookbook-wide { min-height: clamp(360px, 38vw, 560px); }
+.lookbook-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: linear-gradient(135deg, transparent 20%, color-mix(in oklab, var(--taupe) 30%, transparent) 54%, transparent 84%);
+  mix-blend-mode: soft-light;
+  transition: opacity 700ms ease;
+}
+.lookbook-frame:hover .lookbook-glow { opacity: 1; }
+.lookbook-caption {
+  position: absolute;
+  left: 18px;
+  bottom: 16px;
+  opacity: 0;
+  transform: translateY(10px);
+  color: var(--cream);
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+.lookbook-frame:hover .lookbook-caption {
+  opacity: 0.82;
+  transform: translateY(0);
+}
+.lookbook-parallax { transform: translateY(5vw); }
+.lookbook-parallax.is-visible { transform: translateY(0); }
+.lookbook-floating {
+  position: absolute;
+  right: clamp(28px, 4vw, 80px);
+  top: clamp(40px, 8vw, 130px);
+  z-index: 4;
+  height: clamp(260px, 28vw, 430px);
+  width: clamp(190px, 20vw, 310px);
+  overflow: hidden;
+  box-shadow: 0 34px 100px -45px color-mix(in oklab, var(--chocolate) 65%, transparent);
+}
+@media (max-width: 767px) {
+  .lookbook-grid { gap: 18px; }
+  .lookbook-frame { min-height: 420px; }
+  .lookbook-large, .lookbook-tall { min-height: 560px; }
+  .lookbook-small { min-height: 330px; }
+  .lookbook-caption { opacity: 0.72; transform: none; }
 }
 
 /* ===== Shiny Enquire button ===== */
