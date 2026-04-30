@@ -136,8 +136,43 @@ export function Collections() {
           }`}
           style={{ willChange: "width" }}
         >
+          {/* Mobile: clean single-column editorial stack */}
+          <div className="reveal flex flex-col gap-4 md:hidden">
+            {visibleTiles.map((tile, i) => {
+              const isActive = active?.src === tile.src;
+              return (
+                <button
+                  key={`m-${tile.src}-${i}`}
+                  type="button"
+                  onClick={() => setActive({ src: tile.src, category: tile.category })}
+                  className="group relative block w-full overflow-hidden bg-[var(--beige)] cursor-pointer focus:outline-none"
+                  aria-label={`Open ${tile.category}`}
+                  style={{
+                    boxShadow: isActive
+                      ? "0 0 0 2px color-mix(in oklab, var(--chocolate) 60%, transparent)"
+                      : undefined,
+                  }}
+                >
+                  <img
+                    src={tile.src}
+                    alt={tile.category}
+                    loading="lazy"
+                    className="block w-full h-auto object-contain"
+                  />
+                  <span
+                    className="absolute left-3 bottom-3 text-[10px] tracking-[0.32em] uppercase"
+                    style={{ color: "var(--cream)", textShadow: "0 1px 8px rgba(0,0,0,0.45)" }}
+                  >
+                    {tile.category}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Desktop / tablet: original 2-row 12-col masonry (unchanged) */}
           <div
-            className="reveal grid grid-cols-12 grid-rows-2 gap-2"
+            className="reveal hidden md:grid grid-cols-12 grid-rows-2 gap-2"
             style={{
               // Strict 2-row band — heights scale with viewport
               height: "min(78vh, 720px)",
