@@ -220,11 +220,12 @@ export function Collections() {
               </button>
 
               {/* Main image — fills entire top region, contain to preserve ratio */}
-              <div className="flex-1 min-h-0 w-full bg-[var(--beige)]">
+              <div className="flex-1 min-h-0 w-full bg-[var(--beige)] relative overflow-hidden">
                 <img
+                  key={active.src}
                   src={active.src}
                   alt={active.category}
-                  className="block w-full h-full object-contain"
+                  className="absolute inset-0 block w-full h-full object-contain animate-fade-in"
                 />
               </div>
 
