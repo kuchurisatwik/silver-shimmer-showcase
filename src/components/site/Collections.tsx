@@ -197,14 +197,6 @@ export function Collections() {
               }}
             />
 
-            {/* Desktop click-outside catcher (transparent, only over grid area) */}
-            <div
-              className="hidden md:block fixed inset-y-0 left-0 z-[60]"
-              style={{ width: "58%" }}
-              onClick={() => setActive(null)}
-              aria-hidden
-            />
-
             <aside
               className="fixed top-0 right-0 z-[80] h-screen w-full md:w-[42%] flex flex-col"
               style={{
