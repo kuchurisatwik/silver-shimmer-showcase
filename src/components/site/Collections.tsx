@@ -24,7 +24,7 @@ type Tile = {
 
 // Curated layout — mirrors reference: anchors + medium + thin verticals,
 // arranged so categories cluster naturally (no separate sections).
-const tiles: Tile[] = [
+const tiles: Tile[] = ([
   // Row band 1 — Necklaces anchor + necklace cluster + earring + necklace anchor
   { src: allImages[0],  category: "Necklaces",  col: "col-span-12 md:col-span-4", row: "md:row-span-12", anchor: true },
   { src: allImages[1],  category: "Necklaces",  col: "col-span-6 md:col-span-3",  row: "md:row-span-7" },
@@ -49,7 +49,7 @@ const tiles: Tile[] = [
   { src: allImages[10], category: "Chokers",    col: "col-span-12 md:col-span-4", row: "md:row-span-6" },
   { src: allImages[11], category: "Necklaces",  col: "col-span-6 md:col-span-4", row: "md:row-span-6" },
   { src: allImages[16], category: "Bracelets",  col: "col-span-6 md:col-span-4", row: "md:row-span-6" },
-].filter((t) => t.src);
+] as Tile[]).filter((t) => t.src);
 
 // Category → reference thumbnails for the popup row
 function getReferences(category: Category, currentSrc: string): string[] {
