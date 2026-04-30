@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { X } from "lucide-react";
 
-// Import all real Drive assets (already downloaded as webp)
+// Real Drive assets (downloaded as webp)
 const imageModules = import.meta.glob("@/assets/lookbook/lookbook-*.webp", {
   eager: true,
   import: "default",
@@ -16,10 +16,11 @@ type Category = "Necklaces" | "Earrings" | "Bracelets" | "Rings" | "Chokers";
 type Tile = {
   src: string;
   category: Category;
+  // grid placement (only used for the 2-row visible grid)
+  col: string;
+  row: string;
 };
 
-// Cycle categories across all real assets — no fixed grid placement,
-// the masonry (CSS columns) handles flow + density automatically.
 const CATEGORY_CYCLE: Category[] = [
   "Necklaces",
   "Earrings",
@@ -28,28 +29,69 @@ const CATEGORY_CYCLE: Category[] = [
   "Chokers",
 ];
 
-const tiles: Tile[] = allImages.map((src, i) => ({
+// Stable category for every asset (used for mapping references too)
+const allCategorized = allImages.map((src, i) => ({
   src,
-  category: CATEGORY_CYCLE[i % CATEGORY_CYCLE.length],
+  category: CATEGORY_CYCLE[i % CATEGORY_CYCLE.length] as Category,
 }));
 
-function getReferences(category: Category, currentSrc: string): string[] {
-  const same = tiles
-    .filter((t) => t.category === category && t.src !== currentSrc)
-    .map((t) => t.src);
-  const others = allImages.filter((s) => s !== currentSrc && !same.includes(s));
-  return [...same, ...others].slice(0, 8);
-}
+/**
+ * 2-row asymmetrical masonry — uses a 12-col x 2-row CSS grid.
+ * Total column-spans per row sum to 12. Heights are governed by row count.
+ * Only the first N images are visible in the grid; the rest become reference
+ * material in the popup.
+ */
+const VISIBLE_LAYOUT: Array<{ col: string; row: string }> = [
+  // Row 1
+  { col: "col-span-3", row: "row-span-1" },
+  { col: "col-span-2", row: "row-span-1" },
+  { col: "col-span-4", row: "row-span-1" },
+  { col: "col-span-3", row: "row-span-1" },
+  // Row 2
+  { col: "col-span-2", row: "row-span-1" },
+  { col: "col-span-4", row: "row-span-1" },
+  { col: "col-span-3", row: "row-span-1" },
+  { col: "col-span-3", row: "row-span-1" },
+];
+
+// Shrunken layout when popup is open (still 2 rows, 12 cols)
+const VISIBLE_LAYOUT_OPEN: Array<{ col: string; row: string }> = [
+  { col: "col-span-4", row: "row-span-1" },
+  { col: "col-span-4", row: "row-span-1" },
+  { col: "col-span-4", row: "row-span-1" },
+  { col: "col-span-6", row: "row-span-1" },
+  { col: "col-span-6", row: "row-span-1" },
+];
 
 export function Collections() {
-  const [active, setActive] = useState<Tile | null>(null);
+  const [active, setActive] = useState<{ src: string; category: Category } | null>(null);
+  const isOpen = !!active;
+
+  const layout = isOpen ? VISIBLE_LAYOUT_OPEN : VISIBLE_LAYOUT;
+
+  const visibleTiles: Tile[] = useMemo(
+    () =>
+      layout.map((slot, i) => ({
+        ...allCategorized[i % allCategorized.length],
+        col: slot.col,
+        row: slot.row,
+      })),
+    [layout]
+  );
+
+  // Context-aware references: same category first, then same category overflow.
+  // No random cross-category fill.
+  const references = useMemo(() => {
+    if (!active) return [];
+    return allCategorized
+      .filter((t) => t.category === active.category && t.src !== active.src)
+      .map((t) => t.src);
+  }, [active]);
 
   useEffect(() => {
     if (!active) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setActive(null);
     document.addEventListener("keydown", onKey);
-    // On mobile, popup is full-screen → lock body scroll.
-    // On desktop, grid stays scrollable behind the side panel.
     const isMobile = window.matchMedia("(max-width: 767px)").matches;
     if (isMobile) document.body.style.overflow = "hidden";
     return () => {
@@ -57,8 +99,6 @@ export function Collections() {
       document.body.style.overflow = "";
     };
   }, [active]);
-
-  const isOpen = !!active;
 
   return (
     <section
@@ -87,64 +127,66 @@ export function Collections() {
         </div>
       </div>
 
-      {/* Split-stage: grid (left) shrinks when side panel (right) opens */}
+      {/* Split-stage container */}
       <div className="relative w-full">
-        {/* Grid stage — width animates when popup is open (desktop only) */}
+        {/* LEFT — 2-row constrained masonry grid */}
         <div
-          className={`transition-[width,padding] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-            isOpen
-              ? "md:w-[58%] md:pl-6 md:pr-3"
-              : "w-full px-4 md:px-8"
-          } w-full`}
+          className={`transition-[width,padding] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] px-4 md:px-8 ${
+            isOpen ? "md:w-[58%] md:pr-3" : "w-full"
+          }`}
           style={{ willChange: "width" }}
         >
-          {/* True masonry via CSS columns — no fixed heights, no cropping.
-              Density tightens automatically as available width shrinks. */}
           <div
-            className={`reveal ${
-              isOpen
-                ? "columns-2 md:columns-3"
-                : "columns-2 sm:columns-3 md:columns-4 lg:columns-5"
-            }`}
-            style={{ columnGap: "8px" }}
+            className="reveal grid grid-cols-12 grid-rows-2 gap-2"
+            style={{
+              // Strict 2-row band — heights scale with viewport
+              height: "min(78vh, 720px)",
+            }}
           >
-            {tiles.map((tile, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => setActive(tile)}
-                className="group relative block w-full mb-2 overflow-hidden bg-[var(--beige)] cursor-pointer focus:outline-none break-inside-avoid"
-                aria-label={`Open ${tile.category}`}
-              >
-                <img
-                  src={tile.src}
-                  alt={tile.category}
-                  loading="lazy"
-                  className="block w-full h-auto transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
-                />
-                {/* hover gradient */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+            {visibleTiles.map((tile, i) => {
+              const isActive = active?.src === tile.src;
+              return (
+                <button
+                  key={`${tile.src}-${i}`}
+                  type="button"
+                  onClick={() => setActive({ src: tile.src, category: tile.category })}
+                  className={`group relative block overflow-hidden bg-[var(--beige)] cursor-pointer focus:outline-none ${tile.col} ${tile.row}`}
+                  aria-label={`Open ${tile.category}`}
                   style={{
-                    background:
-                      "linear-gradient(180deg, transparent 55%, color-mix(in oklab, var(--chocolate) 55%, transparent) 100%)",
+                    boxShadow: isActive
+                      ? "0 0 0 2px color-mix(in oklab, var(--chocolate) 60%, transparent)"
+                      : undefined,
                   }}
-                />
-                <span
-                  className="absolute left-3 bottom-3 text-[10px] tracking-[0.32em] uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{ color: "var(--cream)" }}
                 >
-                  {tile.category}
-                </span>
-              </button>
-            ))}
+                  <img
+                    src={tile.src}
+                    alt={tile.category}
+                    loading="lazy"
+                    className="block w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                  />
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, transparent 55%, color-mix(in oklab, var(--chocolate) 55%, transparent) 100%)",
+                    }}
+                  />
+                  <span
+                    className="absolute left-3 bottom-3 text-[10px] tracking-[0.32em] uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ color: "var(--cream)" }}
+                  >
+                    {tile.category}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* ===== Right-side popup panel ===== */}
+        {/* RIGHT — popup panel (fully fills its side, no blank space) */}
         {isOpen && (
           <>
-            {/* Mobile backdrop (hidden on desktop — grid stays visible) */}
+            {/* Mobile backdrop */}
             <div
               className="fixed inset-0 z-[70] md:hidden animate-fade-in"
               onClick={() => setActive(null)}
@@ -155,16 +197,26 @@ export function Collections() {
               }}
             />
 
+            {/* Desktop click-outside catcher (transparent, only over grid area) */}
+            <div
+              className="hidden md:block fixed inset-y-0 left-0 z-[60]"
+              style={{ width: "58%" }}
+              onClick={() => setActive(null)}
+              aria-hidden
+            />
+
             <aside
               className="fixed top-0 right-0 z-[80] h-screen w-full md:w-[42%] flex flex-col"
               style={{
-                background: "var(--cream)",
+                background:
+                  "color-mix(in oklab, var(--cream) 88%, transparent)",
+                backdropFilter: "blur(18px)",
+                WebkitBackdropFilter: "blur(18px)",
                 boxShadow:
                   "-30px 0 80px -20px color-mix(in oklab, var(--chocolate) 35%, transparent)",
                 animation: "slide-in-right 600ms cubic-bezier(0.22, 1, 0.36, 1) both",
               }}
             >
-              {/* Close */}
               <button
                 type="button"
                 onClick={() => setActive(null)}
@@ -175,21 +227,23 @@ export function Collections() {
                 <X className="h-4 w-4" />
               </button>
 
-              {/* Main image — dominant, fluid, full container */}
-              <div
-                className="flex-1 min-h-0 w-full flex items-center justify-center bg-[var(--beige)]"
-                style={{ padding: "0" }}
-              >
+              {/* Main image — fills entire top region, contain to preserve ratio */}
+              <div className="flex-1 min-h-0 w-full bg-[var(--beige)]">
                 <img
                   src={active.src}
                   alt={active.category}
-                  className="w-full h-full object-contain"
-                  style={{ display: "block" }}
+                  className="block w-full h-full object-contain"
                 />
               </div>
 
-              {/* Minimal caption + single horizontal reference row */}
-              <div className="shrink-0 px-5 md:px-6 py-4 md:py-5 border-t" style={{ borderColor: "color-mix(in oklab, var(--taupe) 25%, transparent)" }}>
+              {/* Caption + horizontal references (same category only) */}
+              <div
+                className="shrink-0 px-5 md:px-6 py-4 md:py-5 border-t"
+                style={{
+                  borderColor:
+                    "color-mix(in oklab, var(--taupe) 25%, transparent)",
+                }}
+              >
                 <div className="flex items-end justify-between mb-3">
                   <div>
                     <p
@@ -209,15 +263,25 @@ export function Collections() {
                     className="text-[10px] tracking-[0.4em] uppercase"
                     style={{ color: "var(--muted-foreground)" }}
                   >
-                    References
+                    {references.length} references
                   </p>
                 </div>
                 <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:thin]">
-                  {getReferences(active.category, active.src).map((src, i) => (
+                  {references.length === 0 && (
+                    <p
+                      className="text-[11px] tracking-[0.2em] uppercase py-4"
+                      style={{ color: "var(--muted-foreground)" }}
+                    >
+                      No further pieces in this category.
+                    </p>
+                  )}
+                  {references.map((src, i) => (
                     <button
                       key={i}
                       type="button"
-                      onClick={() => setActive({ ...active, src })}
+                      onClick={() =>
+                        setActive({ src, category: active.category })
+                      }
                       className="relative shrink-0 h-16 w-16 md:h-20 md:w-20 overflow-hidden bg-[var(--beige)] transition-opacity hover:opacity-80"
                     >
                       <img
