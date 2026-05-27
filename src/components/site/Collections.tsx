@@ -109,15 +109,19 @@ export function Collections() {
       {/* Editorial header */}
       <div className="container-wide mb-10 md:mb-14">
         <div className="grid grid-cols-12 gap-6 reveal">
-          <div className="col-span-12 md:col-span-8">
+          <div className="col-span-12 md:col-span-2">
+            <p className="eyebrow">N° 01 — Collections</p>
+          </div>
+          <div className="col-span-12 md:col-span-7">
             <h2 className="display-lg" style={{ color: "var(--chocolate)" }}>
               The <span className="italic font-display">collections</span> —<br />
               a study in restraint.
             </h2>
           </div>
-          <div className="col-span-12 md:col-span-4 md:pt-3 md:flex md:justify-end">
+          <div className="col-span-12 md:col-span-3 md:pt-4">
+            <div className="shimmer-divider mb-3" />
             <p
-              className="text-[13px] leading-[1.9] max-w-[260px]"
+              className="text-[12.5px] leading-[1.9] max-w-[260px]"
               style={{ color: "var(--muted-foreground)" }}
             >
               Pure signature works. Each piece is bound with a story
@@ -126,6 +130,7 @@ export function Collections() {
           </div>
         </div>
       </div>
+
 
       {/* Split-stage container */}
       <div className="relative w-full">
