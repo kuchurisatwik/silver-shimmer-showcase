@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-// Real lookbook assets from Drive
 const imageModules = import.meta.glob("@/assets/lookbook/lookbook-*.webp", {
   eager: true,
   import: "default",
@@ -10,35 +9,38 @@ const all = Object.entries(imageModules)
   .sort(([a], [b]) => a.localeCompare(b))
   .map(([, src]) => src);
 
-// Pick representative images per category from the Drive set
 const pick = (n: number) => all[(n - 1) % all.length];
 
 const cats = [
   {
     name: "Necklaces",
     italic: "layered",
-    desc: "Sculptural silhouettes in silver — from delicate everyday studs to bold statement collars.",
+    material: "925 Silver · Hand-soldered links",
+    desc: "Sculptural silhouettes — from delicate everyday chains to bold heirloom collars finished by hand.",
     img: pick(1),
     count: "67 pieces",
   },
   {
     name: "Bracelets",
     italic: "everyday",
-    desc: "Linked with patience, finished by hand. Wear one — or stack them all.",
+    material: "925 Silver · Lost-wax cast",
+    desc: "Linked with patience, finished with rouge. Wear one — or stack them like a quiet diary.",
     img: pick(10),
     count: "32 pieces",
   },
   {
     name: "Statement",
     italic: "bib",
-    desc: "Heirloom silhouettes for the moments that ask to be remembered.",
+    material: "925 Silver · Hand-engraved",
+    desc: "Heirloom silhouettes for the moments that ask to be remembered — and the ones that will be.",
     img: pick(17),
     count: "18 pieces",
   },
   {
     name: "Emerald",
     italic: "edit",
-    desc: "Hand-set emeralds nested into hand-polished silver. A study in green and shadow.",
+    material: "925 Silver · Hand-set Emeralds",
+    desc: "Conflict-free emeralds nested into hand-polished silver. A study in green and shadow.",
     img: pick(22),
     count: "14 pieces",
   },
@@ -47,23 +49,33 @@ const cats = [
 export function Categories() {
   const [active, setActive] = useState(0);
   return (
-    <section className="section-pad" style={{ background: "var(--beige)" }}>
-      <div className="container-wide">
-        <div className="grid grid-cols-12 gap-6 mb-10 reveal">
+    <section className="section-pad relative overflow-hidden" style={{ background: "var(--beige)" }}>
+      <div
+        className="absolute inset-0 pointer-events-none opacity-50"
+        style={{
+          background:
+            "radial-gradient(ellipse at 90% 0%, color-mix(in oklab, var(--silver) 18%, transparent), transparent 55%)",
+        }}
+      />
+      <div className="container-wide relative">
+        <div className="grid grid-cols-12 gap-6 mb-12 reveal">
           <div className="col-span-12 md:col-span-2">
             <p className="eyebrow">N° 02 — Index</p>
           </div>
           <div className="col-span-12 md:col-span-8">
-            <h2 className="display-md">
+            <h2 className="display-lg">
               Categories — <span className="italic font-display">an unhurried</span> index.
             </h2>
           </div>
+          <div className="col-span-12 md:col-span-2 md:pt-4">
+            <div className="shimmer-divider" />
+          </div>
         </div>
 
-        <div className="grid grid-cols-12 gap-8 md:gap-12 items-start">
+        <div className="grid grid-cols-12 gap-8 md:gap-14 items-start">
           {/* Left: vertical category list */}
           <div className="col-span-12 lg:col-span-5">
-            <ul className="divide-y" style={{ borderColor: "color-mix(in oklab, var(--chocolate) 14%, transparent)" }}>
+            <ul>
               {cats.map((c, i) => {
                 const isActive = active === i;
                 return (
@@ -71,45 +83,71 @@ export function Categories() {
                     key={c.name}
                     onMouseEnter={() => setActive(i)}
                     onClick={() => setActive(i)}
-                    className="group py-5 cursor-pointer border-t first:border-t-0 transition-colors"
-                    style={{ borderColor: "color-mix(in oklab, var(--chocolate) 14%, transparent)" }}
+                    className="group py-6 cursor-pointer border-t transition-all"
+                    style={{
+                      borderColor: isActive
+                        ? "color-mix(in oklab, var(--silver) 70%, transparent)"
+                        : "color-mix(in oklab, var(--chocolate) 12%, transparent)",
+                    }}
                   >
                     <div className="flex items-baseline gap-3 sm:gap-5 flex-wrap">
                       <span
-                        className="text-[9px] tracking-[0.4em] uppercase shrink-0"
+                        className="text-[9px] tracking-[0.5em] uppercase shrink-0 transition-colors"
                         style={{ color: isActive ? "var(--chocolate)" : "var(--taupe)" }}
                       >
                         0{i + 1}
                       </span>
                       <h3
-                        className={`font-display text-xl sm:text-2xl md:text-3xl leading-none transition-all duration-500 ${
-                          isActive ? "translate-x-1" : "opacity-70"
+                        className={`font-display text-2xl sm:text-3xl md:text-4xl leading-none transition-all duration-700 ${
+                          isActive ? "translate-x-2" : "opacity-65"
                         }`}
                         style={{ color: "var(--chocolate)" }}
                       >
                         {c.name} <span className="italic">{c.italic}</span>
                       </h3>
-                      <span className="ml-auto text-[9px] tracking-[0.4em] uppercase shrink-0" style={{ color: "var(--taupe)" }}>
+                      <span
+                        className="ml-auto text-[9px] tracking-[0.5em] uppercase shrink-0"
+                        style={{ color: "var(--taupe)" }}
+                      >
                         {c.count}
                       </span>
                     </div>
-                    <p
-                      className={`overflow-hidden transition-all duration-700 ease-out text-[12px] leading-[1.7] pl-7 sm:pl-10 mt-0 ${
-                        isActive ? "max-h-32 opacity-100 mt-3" : "max-h-0 opacity-0"
+                    <div
+                      className={`overflow-hidden transition-all duration-700 ease-out pl-7 sm:pl-12 ${
+                        isActive ? "max-h-40 opacity-100 mt-4" : "max-h-0 opacity-0"
                       }`}
-                      style={{ color: "var(--muted-foreground)" }}
                     >
-                      {c.desc}
-                    </p>
+                      <p
+                        className="text-[10px] tracking-[0.4em] uppercase mb-2"
+                        style={{ color: "var(--emerald)" }}
+                      >
+                        {c.material}
+                      </p>
+                      <p
+                        className="text-[13px] leading-[1.85] max-w-md"
+                        style={{ color: "var(--muted-foreground)" }}
+                      >
+                        {c.desc}
+                      </p>
+                    </div>
                   </li>
                 );
               })}
+              <li
+                className="border-t"
+                style={{
+                  borderColor: "color-mix(in oklab, var(--chocolate) 12%, transparent)",
+                }}
+              />
             </ul>
           </div>
 
-          {/* Right: dynamic image — fills entire frame, no padding */}
+          {/* Right: dynamic image — luxury frame, silver vignette */}
           <div className="col-span-12 lg:col-span-7 lg:sticky lg:top-28">
-            <div className="relative aspect-[4/5] overflow-hidden bg-[var(--chocolate)]">
+            <div
+              className="relative aspect-[4/5] overflow-hidden bg-[var(--chocolate)] jewel-glow"
+              style={{ boxShadow: "var(--shadow-jewel)" }}
+            >
               {cats.map((c, i) => (
                 <img
                   key={c.name}
@@ -121,23 +159,38 @@ export function Categories() {
                   }`}
                 />
               ))}
+              {/* Silver vignette */}
               <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                   background:
-                    "linear-gradient(180deg, transparent 55%, color-mix(in oklab, var(--chocolate) 65%, transparent) 100%)",
+                    "radial-gradient(ellipse at center, transparent 45%, color-mix(in oklab, var(--chocolate) 70%, transparent) 100%)",
+                  mixBlendMode: "multiply",
                 }}
               />
-              <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between">
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "linear-gradient(180deg, transparent 55%, color-mix(in oklab, var(--chocolate) 75%, transparent) 100%)",
+                }}
+              />
+              <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
                 <div>
-                  <p className="eyebrow" style={{ color: "var(--silver)" }}>
-                    Featured
+                  <p className="eyebrow-luxe text-[9px]" style={{ color: "var(--silver)" }}>
+                    Featured · {cats[active].material}
                   </p>
-                  <p className="font-display italic text-lg sm:text-xl mt-1" style={{ color: "var(--cream)" }}>
+                  <p
+                    className="font-display italic text-2xl sm:text-3xl mt-2"
+                    style={{ color: "var(--ivory)" }}
+                  >
                     {cats[active].name} {cats[active].italic}
                   </p>
                 </div>
-                <span className="text-[9px] tracking-[0.4em] uppercase" style={{ color: "var(--cream)" }}>
+                <span
+                  className="text-[9px] tracking-[0.5em] uppercase"
+                  style={{ color: "var(--cream)" }}
+                >
                   0{active + 1} / 0{cats.length}
                 </span>
               </div>

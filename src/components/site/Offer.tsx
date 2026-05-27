@@ -19,13 +19,14 @@ export function Offer() {
 
         <div className="container-wide relative">
           <div className="grid grid-cols-12 gap-6 mb-10 reveal">
-            <p className="eyebrow col-span-6" style={{ color: "color-mix(in oklab, var(--cream) 70%, transparent)" }}>
-              N° 04 — Spring Campaign
+            <p className="eyebrow-luxe col-span-6 text-[9px]" style={{ color: "color-mix(in oklab, var(--cream) 70%, transparent)" }}>
+              N° 05 — Spring Campaign
             </p>
-            <p className="eyebrow col-span-6 text-right" style={{ color: "color-mix(in oklab, var(--cream) 70%, transparent)" }}>
-              MMXXVI
+            <p className="eyebrow-luxe col-span-6 text-right text-[9px]" style={{ color: "color-mix(in oklab, var(--cream) 70%, transparent)" }}>
+              MMXXVI · 24 numbered
             </p>
           </div>
+
 
           <div className="text-center reveal">
             <h2

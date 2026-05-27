@@ -3,10 +3,12 @@ import { Navbar } from "@/components/site/Navbar";
 import { Hero } from "@/components/site/Hero";
 import { Collections } from "@/components/site/Collections";
 import { Categories } from "@/components/site/Categories";
+import { Craft } from "@/components/site/Craft";
 import { Gallery } from "@/components/site/Gallery";
 import { Offer } from "@/components/site/Offer";
 import { Story } from "@/components/site/Story";
 import { Footer } from "@/components/site/Footer";
+
 import { useReveal } from "@/hooks/use-reveal";
 
 export const Route = createFileRoute("/")({
@@ -38,10 +40,12 @@ function Home() {
       <Hero />
       <Collections />
       <Categories />
+      <Craft />
       <Gallery />
       <Offer />
       <Story />
       <Footer />
+
     </>
   );
 }
