@@ -7,14 +7,18 @@ export function Story() {
       <div className="container-wide">
         <div className="grid grid-cols-12 gap-6 mb-16 reveal">
           <div className="col-span-12 md:col-span-2">
-            <p className="eyebrow">N° 05 — Maison</p>
+            <p className="eyebrow">N° 06 — Maison</p>
           </div>
-          <div className="col-span-12 md:col-span-10">
+          <div className="col-span-12 md:col-span-8">
             <h2 className="display-lg">
               Quiet hands. <span className="italic font-display">Patient silver.</span>
             </h2>
           </div>
+          <div className="col-span-12 md:col-span-2 md:pt-4">
+            <div className="shimmer-divider" />
+          </div>
         </div>
+
 
         <div className="grid grid-cols-12 gap-8 md:gap-14 items-start">
           {/* Image stack — left, with overlap */}
