@@ -79,7 +79,13 @@
   --beige: oklch(0.92 0.012 75);       /* #EDE7E0 */
   --cream: oklch(0.95 0.01 75);        /* #F5F1EB */
   --champagne: oklch(0.94 0.018 75);   /* warm ivory editorial base */
+  --ivory: oklch(0.97 0.008 80);       /* near-white luxe */
   --silver: oklch(0.80 0.003 250);     /* #C0C0C0 */
+  --silver-cool: oklch(0.86 0.006 240);
+  --silver-warm: oklch(0.78 0.010 80);
+  --emerald: oklch(0.42 0.085 165);    /* deep muted emerald accent */
+  --gradient-silver-sheen: linear-gradient(115deg, color-mix(in oklab, var(--silver) 10%, transparent) 0%, var(--silver) 35%, var(--ivory) 50%, var(--silver) 65%, color-mix(in oklab, var(--silver) 10%, transparent) 100%);
+  --shadow-jewel: 0 50px 120px -40px color-mix(in oklab, var(--chocolate) 55%, transparent), 0 0 60px -20px color-mix(in oklab, var(--silver) 30%, transparent);
 
   /* Semantic mapping — luxury cream base */
   --background: var(--cream);
