@@ -40,10 +40,12 @@ function Home() {
       <Hero />
       <Collections />
       <Categories />
+      <Craft />
       <Gallery />
       <Offer />
       <Story />
       <Footer />
+
     </>
   );
 }
