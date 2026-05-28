@@ -10,12 +10,12 @@ const all = Object.entries(imageModules)
 
 const pick = (n: number) => all[(n - 1) % all.length];
 
-const macro = pick(7);       // dominant macro shot
-const portraitA = pick(4);   // editorial portrait
-const portraitB = pick(13);  // detail / texture
-const detailA = pick(20);    // texture crop
-const detailB = pick(24);    // closeup
-const cinematic = pick(28);  // wide cinematic still
+const macro = pick(3);       // dominant macro shot
+const portraitA = pick(6);   // editorial portrait
+const portraitB = pick(14);  // detail / texture
+const detailA = pick(19);    // texture crop
+const detailB = pick(25);    // closeup
+const cinematic = pick(27);  // wide cinematic still
 
 export function Gallery() {
   return (
