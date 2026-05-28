@@ -41,7 +41,7 @@ const cats = [
     italic: "edit",
     material: "925 Silver · Hand-set Emeralds",
     desc: "Conflict-free emeralds nested into hand-polished silver. A study in green and shadow.",
-    img: pick(22),
+    img: pick(26),
     count: "14 pieces",
   },
 ];

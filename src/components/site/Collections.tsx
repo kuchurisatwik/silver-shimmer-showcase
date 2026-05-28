@@ -30,10 +30,14 @@ const CATEGORY_CYCLE: Category[] = [
 ];
 
 // Stable category for every asset (used for mapping references too)
-const allCategorized = allImages.map((src, i) => ({
-  src,
-  category: CATEGORY_CYCLE[i % CATEGORY_CYCLE.length] as Category,
-}));
+// Curated order — pulls a different set of drive photos for the grid
+const CURATED_ORDER = [2, 5, 10, 13, 18, 22, 25, 7, 15, 20, 3, 26, 11, 8, 16, 0, 23, 4, 19, 1, 12, 6, 14, 21, 9, 17, 24, 27];
+const allCategorized = CURATED_ORDER
+  .filter((i) => i < allImages.length)
+  .map((i, idx) => ({
+    src: allImages[i],
+    category: CATEGORY_CYCLE[idx % CATEGORY_CYCLE.length] as Category,
+  }));
 
 /**
  * 2-row asymmetrical masonry — uses a 12-col x 2-row CSS grid.
