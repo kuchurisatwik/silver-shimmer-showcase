@@ -63,10 +63,14 @@ export function Categories() {
             <p className="eyebrow">N° 02 — Index</p>
           </div>
           <div className="col-span-12 md:col-span-8">
-            <h2 className="display-lg">
-              Categories — <span className="italic font-display">an unhurried</span> index.
-            </h2>
+            <div className="headline-stack">
+              <h2 className="display-lg">An Unhurried</h2>
+              <span className="script-lg script-overlay pl-[14%] block" style={{ color: "var(--taupe)" }}>
+                Index
+              </span>
+            </div>
           </div>
+
           <div className="col-span-12 md:col-span-2 md:pt-4">
             <div className="shimmer-divider" />
           </div>

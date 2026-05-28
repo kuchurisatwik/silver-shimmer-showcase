@@ -36,13 +36,16 @@ export function Footer() {
           </div>
           <div className="col-span-12 md:col-span-8">
             <p
-              className="font-display italic text-3xl md:text-5xl leading-[1.15]"
+              className="font-display text-3xl md:text-5xl leading-[1.15]"
               style={{ color: "color-mix(in oklab, var(--cream) 92%, transparent)" }}
             >
               We make silver the way silver was meant to be worn —
-              <span className="not-italic font-light"> slowly, honestly, and for keeps.</span>
+              <span className="script-md block mt-3" style={{ color: "var(--silver)" }}>
+                slowly, honestly, for keeps.
+              </span>
             </p>
           </div>
+
         </div>
 
         <div className="shimmer-divider mb-16" />

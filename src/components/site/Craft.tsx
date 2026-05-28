@@ -39,10 +39,14 @@ export function Craft() {
             <p className="eyebrow">N° 03 — Atelier</p>
           </div>
           <div className="col-span-12 md:col-span-8">
-            <h2 className="display-lg" style={{ color: "var(--chocolate)" }}>
-              The craft, <span className="italic font-display">held in three hands.</span>
-            </h2>
+            <div className="headline-stack">
+              <h2 className="display-lg" style={{ color: "var(--chocolate)" }}>The Craft, Held In</h2>
+              <span className="script-lg script-overlay pl-[14%] block" style={{ color: "var(--taupe)" }}>
+                three hands
+              </span>
+            </div>
           </div>
+
           <div className="col-span-12 md:col-span-2 md:pt-3">
             <div className="shimmer-divider mb-3" />
             <p

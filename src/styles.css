@@ -1,6 +1,7 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import url("https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Italianno&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -184,8 +185,48 @@
 
 .animate-fade-up { animation: fade-up 1s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .animate-fade-in { animation: fade-in 1.4s ease-out both; }
-.animate-slow-zoom { animation: slow-zoom 18s ease-out forwards; }
-.animate-letter-reveal { animation: letter-reveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-slow-zoom { animation: slow-zoom 32s ease-out forwards; }
+.animate-letter-reveal { animation: letter-reveal 1.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* Cinematic ambient drift — for hero backgrounds & still imagery */
+@keyframes cinematic-drift {
+  0%   { transform: scale(1.04) translate3d(0, 0, 0); }
+  50%  { transform: scale(1.08) translate3d(-1.2%, -0.8%, 0); }
+  100% { transform: scale(1.04) translate3d(0, 0, 0); }
+}
+.animate-drift { animation: cinematic-drift 28s ease-in-out infinite; }
+
+/* Reflective silver light sweep — slow, atmospheric */
+@keyframes light-sweep {
+  0%   { transform: translateX(-120%) rotate(8deg); opacity: 0; }
+  20%  { opacity: 0.5; }
+  60%  { opacity: 0.5; }
+  100% { transform: translateX(150%) rotate(8deg); opacity: 0; }
+}
+.light-sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.light-sweep::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: 0;
+  width: 40%;
+  height: 140%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--ivory) 22%, transparent) 45%,
+    color-mix(in oklab, var(--silver) 18%, transparent) 55%,
+    transparent 100%
+  );
+  mix-blend-mode: screen;
+  filter: blur(8px);
+  animation: light-sweep 9s ease-in-out infinite;
+}
 
 /* Reveal-on-scroll utility — toggled by IntersectionObserver */
 .reveal {
@@ -637,15 +678,63 @@
   text-transform: uppercase;
 }
 
-/* Luxe hover image lift */
-.lux-img {
-  transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1), filter 1.2s ease;
+/* ── Signature: layered editorial serif + script italic ── */
+.script-italic {
+  font-family: "Pinyon Script", "Italianno", "Cormorant Garamond", cursive;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -0.005em;
+  line-height: 0.9;
 }
-.group:hover > .lux-img { transform: scale(1.04); filter: brightness(1.06) contrast(1.05); }
+.script-xl {
+  font-family: "Pinyon Script", "Italianno", "Cormorant Garamond", cursive;
+  font-size: clamp(72px, 14vw, 220px);
+  line-height: 0.78;
+  letter-spacing: -0.01em;
+}
+.script-lg {
+  font-family: "Pinyon Script", "Italianno", "Cormorant Garamond", cursive;
+  font-size: clamp(44px, 7vw, 96px);
+  line-height: 0.85;
+}
+.script-md {
+  font-family: "Pinyon Script", "Italianno", "Cormorant Garamond", cursive;
+  font-size: clamp(32px, 4.4vw, 64px);
+  line-height: 0.9;
+}
+
+/* Headline composition — large serif word + overlapping script word */
+.headline-stack {
+  position: relative;
+  display: block;
+}
+.headline-stack .script-overlay {
+  display: block;
+  margin-top: -0.36em;
+  padding-left: 0.18em;
+  transform: translateY(-0.08em);
+}
+
+/* Brighter rim lighting + metallic edge for jewellery imagery */
+.metallic-rim {
+  filter: brightness(1.06) contrast(1.08) saturate(1.04);
+  box-shadow:
+    inset 0 0 60px -10px color-mix(in oklab, var(--chocolate) 35%, transparent),
+    0 40px 100px -40px color-mix(in oklab, var(--chocolate) 60%, transparent),
+    0 0 80px -30px color-mix(in oklab, var(--silver) 35%, transparent);
+}
+
+/* Luxe hover image lift — slower, more atmospheric */
+.lux-img {
+  transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1), filter 1.4s ease;
+  filter: brightness(1.02) contrast(1.04);
+}
+.group:hover > .lux-img { transform: scale(1.05); filter: brightness(1.1) contrast(1.08); }
 
 @media (prefers-reduced-motion: reduce) {
   .metallic-text, .shimmer-divider::after, .float-particles span,
-  .animate-slow-zoom, .animate-letter-reveal, .animate-fade-up, .animate-fade-in {
+  .animate-slow-zoom, .animate-letter-reveal, .animate-fade-up, .animate-fade-in,
+  .animate-drift, .light-sweep::before {
     animation: none !important;
   }
 }

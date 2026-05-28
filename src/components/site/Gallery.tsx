@@ -30,10 +30,14 @@ export function Gallery() {
             <p className="eyebrow">N° 04 — Gallery</p>
           </div>
           <div className="col-span-12 md:col-span-7">
-            <h2 className="display-lg">
-              Light, captured <span className="italic font-display">in silver.</span>
-            </h2>
+            <div className="headline-stack">
+              <h2 className="display-lg">Light, Captured</h2>
+              <span className="script-lg script-overlay pl-[16%] block" style={{ color: "var(--taupe)" }}>
+                in silver
+              </span>
+            </div>
           </div>
+
           <div className="col-span-12 md:col-span-3 md:pt-4">
             <div className="shimmer-divider mb-3" />
             <p className="text-[13px] leading-[1.9]" style={{ color: "var(--muted-foreground)" }}>

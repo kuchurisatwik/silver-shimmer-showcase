@@ -28,20 +28,21 @@ export function Offer() {
           </div>
 
 
-          <div className="text-center reveal">
+          <div className="text-center reveal headline-stack inline-block w-full">
             <h2
               className="display-xl"
               style={{ color: "var(--cream)" }}
             >
-              Quiet statements,
+              Quiet Statements,
             </h2>
-            <h2
-              className="display-xl italic font-display -mt-3 md:-mt-6"
-              style={{ color: "color-mix(in oklab, var(--cream) 75%, var(--taupe))" }}
+            <span
+              className="script-xl script-overlay block"
+              style={{ color: "color-mix(in oklab, var(--cream) 82%, var(--taupe))" }}
             >
-              bold presence.
-            </h2>
+              bold presence
+            </span>
           </div>
+
 
           {/* Image with side captions */}
           <div className="mt-14 grid grid-cols-12 gap-6 items-end reveal" style={{ transitionDelay: "150ms" }}>

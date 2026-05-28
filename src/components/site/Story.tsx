@@ -10,10 +10,14 @@ export function Story() {
             <p className="eyebrow">N° 06 — Maison</p>
           </div>
           <div className="col-span-12 md:col-span-8">
-            <h2 className="display-lg">
-              Quiet hands. <span className="italic font-display">Patient silver.</span>
-            </h2>
+            <div className="headline-stack">
+              <h2 className="display-lg">Quiet Hands</h2>
+              <span className="script-lg script-overlay pl-[12%] block" style={{ color: "var(--taupe)" }}>
+                patient silver
+              </span>
+            </div>
           </div>
+
           <div className="col-span-12 md:col-span-2 md:pt-4">
             <div className="shimmer-divider" />
           </div>

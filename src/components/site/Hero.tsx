@@ -11,7 +11,7 @@ export function Hero() {
     const onScroll = () => {
       const y = window.scrollY;
       if (y > window.innerHeight) return;
-      el.style.transform = `translate3d(0, ${y * 0.18}px, 0) scale(${1 + y * 0.0002})`;
+      el.style.transform = `translate3d(0, ${y * 0.10}px, 0) scale(${1 + y * 0.00012})`;
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -58,6 +58,10 @@ export function Hero() {
         <span /><span /><span /><span /><span /><span /><span /><span />
       </div>
 
+      {/* Slow reflective silver light sweep */}
+      <div className="light-sweep" aria-hidden />
+
+
       {/* Grain */}
       <div className="absolute inset-0 grain pointer-events-none" />
 
@@ -85,18 +89,21 @@ export function Hero() {
             — Silver Couture, Hand-finished
           </p>
 
-          <h1
-            className="display-hero animate-letter-reveal"
-            style={{ color: "var(--cream)", animationDelay: "0.5s" }}
-          >
-            Heirloom
-          </h1>
-          <h1
-            className="display-hero italic font-light animate-letter-reveal -mt-2 md:-mt-4 pl-[6vw] md:pl-[14vw]"
-            style={{ animationDelay: "0.85s" }}
-          >
-            <span className="metallic-text">Silver.</span>
-          </h1>
+          <div className="headline-stack">
+            <h1
+              className="display-hero animate-letter-reveal"
+              style={{ color: "var(--cream)", animationDelay: "0.5s" }}
+            >
+              The Heirloom
+            </h1>
+            <h1
+              className="script-xl script-overlay animate-letter-reveal pl-[8vw] md:pl-[18vw]"
+              style={{ animationDelay: "1.05s" }}
+            >
+              <span className="metallic-text">Silver</span>
+            </h1>
+          </div>
+
 
           <div className="mt-10 md:mt-14 grid grid-cols-12 gap-6 items-end">
             <p
