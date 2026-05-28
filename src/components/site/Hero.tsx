@@ -85,18 +85,21 @@ export function Hero() {
             — Silver Couture, Hand-finished
           </p>
 
-          <h1
-            className="display-hero animate-letter-reveal"
-            style={{ color: "var(--cream)", animationDelay: "0.5s" }}
-          >
-            Heirloom
-          </h1>
-          <h1
-            className="display-hero italic font-light animate-letter-reveal -mt-2 md:-mt-4 pl-[6vw] md:pl-[14vw]"
-            style={{ animationDelay: "0.85s" }}
-          >
-            <span className="metallic-text">Silver.</span>
-          </h1>
+          <div className="headline-stack">
+            <h1
+              className="display-hero animate-letter-reveal"
+              style={{ color: "var(--cream)", animationDelay: "0.5s" }}
+            >
+              The Heirloom
+            </h1>
+            <h1
+              className="script-xl script-overlay animate-letter-reveal pl-[8vw] md:pl-[18vw]"
+              style={{ animationDelay: "1.05s" }}
+            >
+              <span className="metallic-text">Silver</span>
+            </h1>
+          </div>
+
 
           <div className="mt-10 md:mt-14 grid grid-cols-12 gap-6 items-end">
             <p
