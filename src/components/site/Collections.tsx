@@ -117,11 +117,16 @@ export function Collections() {
             <p className="eyebrow">N° 01 — Collections</p>
           </div>
           <div className="col-span-12 md:col-span-7">
-            <h2 className="display-lg" style={{ color: "var(--chocolate)" }}>
-              The <span className="italic font-display">collections</span> —<br />
-              a study in restraint.
-            </h2>
+            <div className="headline-stack">
+              <h2 className="display-lg" style={{ color: "var(--chocolate)" }}>
+                The Collections
+              </h2>
+              <span className="script-lg script-overlay pl-[12%] block" style={{ color: "var(--taupe)" }}>
+                a study in restraint
+              </span>
+            </div>
           </div>
+
           <div className="col-span-12 md:col-span-3 md:pt-4">
             <div className="shimmer-divider mb-3" />
             <p

@@ -11,7 +11,7 @@ export function Hero() {
     const onScroll = () => {
       const y = window.scrollY;
       if (y > window.innerHeight) return;
-      el.style.transform = `translate3d(0, ${y * 0.18}px, 0) scale(${1 + y * 0.0002})`;
+      el.style.transform = `translate3d(0, ${y * 0.10}px, 0) scale(${1 + y * 0.00012})`;
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -57,6 +57,10 @@ export function Hero() {
       <div className="float-particles" aria-hidden>
         <span /><span /><span /><span /><span /><span /><span /><span />
       </div>
+
+      {/* Slow reflective silver light sweep */}
+      <div className="light-sweep" aria-hidden />
+
 
       {/* Grain */}
       <div className="absolute inset-0 grain pointer-events-none" />
