@@ -7,8 +7,11 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
-  nitro: {
-    preset: "netlify",
+  cloudflare: false,
+  tanstackStart: {
+    server: {
+      preset: "netlify",
+    },
   },
   vite: {
     server: {
