@@ -1,35 +1,10 @@
 {
-  "version": 2,
-  "builds": [
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/client",
+  "rewrites": [
     {
-      "src": "api/index.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "dist/client/**",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/assets/(.*)",
-      "dest": "/dist/client/assets/$1"
-    },
-    {
-      "src": "/images/(.*)",
-      "dest": "/dist/client/images/$1"
-    },
-    {
-      "src": "/videos/(.*)",
-      "dest": "/dist/client/videos/$1"
-    },
-    {
-      "src": "/(.*\\.(?:css|js|png|jpg|jpeg|svg|webp|mp4|ico|json))",
-      "dest": "/dist/client/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/api/index"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
