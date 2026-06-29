@@ -1,63 +1,40 @@
 import logo from "@/assets/logo.png";
+import { Instagram, Facebook, Youtube, Mail, Phone, MapPin } from "lucide-react";
 
-const imageModules = import.meta.glob("@/assets/lookbook/lookbook-*.webp", {
-  eager: true,
-  import: "default",
-}) as Record<string, string>;
-const all = Object.entries(imageModules)
-  .sort(([a], [b]) => a.localeCompare(b))
-  .map(([, src]) => src);
-
-const socialPreviews = [all[2], all[8], all[15], all[21]].filter(Boolean);
+const footerSections = [
+  {
+    title: "Information",
+    links: ["About Us", "Contact Us", "FAQs", "Our Store"],
+  },
+  {
+    title: "Services",
+    links: ["Book An Appointment", "Bridal Jewellery Assistance", "Jewellery Consultation", "Request A Callback"],
+  },
+  {
+    title: "Policies",
+    links: ["Shipping Policy", "Return & Exchange Policy", "Privacy Policy", "Terms & Conditions"],
+  },
+];
 
 export function Footer() {
   return (
     <footer
       id="contact"
-      className="pt-24 pb-10 relative overflow-hidden"
+      className="pt-16 pb-8 relative overflow-hidden"
       style={{ background: "var(--chocolate)", color: "var(--cream)" }}
     >
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.04]"
-        style={{
-          background:
-            "radial-gradient(circle at 20% 20%, var(--silver) 0%, transparent 35%), radial-gradient(circle at 80% 80%, var(--silver) 0%, transparent 40%)",
-        }}
-      />
-      <div className="absolute inset-0 grain pointer-events-none opacity-50" />
+      <div className="absolute inset-0 grain pointer-events-none opacity-30" />
 
-      <div className="container-luxe relative">
-        {/* Philosophy statement */}
-        <div className="grid grid-cols-12 gap-8 mb-20 reveal">
-          <div className="col-span-12 md:col-span-2">
-            <p className="eyebrow-luxe text-[9px]" style={{ color: "var(--silver)" }}>
-              — Maison
-            </p>
-          </div>
-          <div className="col-span-12 md:col-span-8">
-            <p
-              className="font-display text-3xl md:text-5xl leading-[1.15]"
-              style={{ color: "color-mix(in oklab, var(--cream) 92%, transparent)" }}
-            >
-              We make silver the way silver was meant to be worn —
-              <span className="script-md block mt-3" style={{ color: "var(--silver)" }}>
-                slowly, honestly, for keeps.
-              </span>
-            </p>
-          </div>
-
-        </div>
-
-        <div className="shimmer-divider mb-16" />
-
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16">
-          <div className="md:col-span-4">
-            <div className="flex items-center gap-3">
-              <img src={logo} alt="Vineeth Silver Jewellery" className="h-12 w-12 object-contain" />
+      <div className="container-wide relative">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 mb-14">
+          {/* Brand column */}
+          <div className="sm:col-span-2 lg:col-span-1">
+            <div className="flex items-center gap-2.5 mb-5">
+              <img src={logo} alt="Vineeth Silver Jewellery" className="h-10 w-10 object-contain" />
               <div>
-                <p className="font-serif text-2xl leading-none">Vineeth</p>
+                <p className="font-serif text-xl leading-none" style={{ color: "var(--cream)" }}>Vineeth</p>
                 <p
-                  className="eyebrow-luxe text-[9px] mt-1"
+                  className="text-[9px] tracking-[0.3em] uppercase mt-0.5"
                   style={{ color: "color-mix(in oklab, var(--cream) 60%, transparent)" }}
                 >
                   Silver Jewellery
@@ -65,113 +42,124 @@ export function Footer() {
               </div>
             </div>
             <p
-              className="mt-8 max-w-sm leading-[1.9] text-[13px] font-light"
-              style={{ color: "color-mix(in oklab, var(--cream) 70%, transparent)" }}
+              className="text-[13px] leading-[1.8] max-w-xs mb-6"
+              style={{ color: "color-mix(in oklab, var(--cream) 65%, transparent)" }}
             >
-              An atelier of modern silver — crafted slowly in Hyderabad,
-              finished by hand, made to last.
+              Beautifully crafted silver jewellery for weddings, celebrations, gifting, and everyday wear. Based in Hyderabad, India.
             </p>
-          </div>
 
-          <div className="md:col-span-2">
-            <p
-              className="font-display italic text-xl mb-6"
-              style={{ color: "var(--silver)" }}
-            >
-              Maison
-            </p>
-            <ul className="space-y-3.5 font-sans text-[13px]">
-              {["Collections", "Categories", "Atelier"].map((l) => (
-                <li key={l}>
-                  <a
-                    href="#"
-                    className="group inline-flex items-center gap-2 transition-colors hover:text-[var(--ivory)]"
-                    style={{ color: "color-mix(in oklab, var(--cream) 72%, transparent)" }}
-                  >
-                    {l}
-                    <span className="opacity-0 group-hover:opacity-100 transition-all -translate-x-1 group-hover:translate-x-0">→</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="md:col-span-2">
-            <p
-              className="font-display italic text-xl mb-6"
-              style={{ color: "var(--silver)" }}
-            >
-              Visit
-            </p>
-            <p
-              className="font-sans text-[13px] leading-[1.9]"
-              style={{ color: "color-mix(in oklab, var(--cream) 72%, transparent)" }}
-            >
-              The Vineeth Atelier
-              <br />
-              Jubilee Hills,
-              <br />
-              Hyderabad · India
-              <br />
-              <span className="eyebrow-luxe text-[9px] block mt-3" style={{ color: "var(--silver)" }}>
-                By appointment
-              </span>
-            </p>
-          </div>
-
-          <div className="md:col-span-4">
-            <p
-              className="font-display italic text-xl mb-6"
-              style={{ color: "var(--silver)" }}
-            >
-              The Journal
-            </p>
-            <div className="grid grid-cols-4 gap-2 mb-5">
-              {socialPreviews.map((src, i) => (
+            {/* Social icons */}
+            <div className="flex gap-3">
+              {[
+                { icon: Instagram, href: "#", label: "Instagram" },
+                { icon: Facebook, href: "#", label: "Facebook" },
+                { icon: Youtube, href: "#", label: "YouTube" },
+              ].map((s) => (
                 <a
-                  key={i}
-                  href="#"
-                  className="group relative aspect-square overflow-hidden bg-[var(--espresso)]"
+                  key={s.label}
+                  href={s.href}
+                  aria-label={s.label}
+                  className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300"
+                  style={{
+                    border: "1px solid color-mix(in oklab, var(--cream) 25%, transparent)",
+                    color: "color-mix(in oklab, var(--cream) 65%, transparent)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "var(--gold-accent)";
+                    e.currentTarget.style.borderColor = "var(--gold-accent)";
+                    e.currentTarget.style.color = "white";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "transparent";
+                    e.currentTarget.style.borderColor = "color-mix(in oklab, var(--cream) 25%, transparent)";
+                    e.currentTarget.style.color = "color-mix(in oklab, var(--cream) 65%, transparent)";
+                  }}
                 >
-                  <img
-                    src={src}
-                    alt=""
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div
-                    className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-0"
-                    style={{ background: "color-mix(in oklab, var(--chocolate) 35%, transparent)" }}
-                  />
+                  <s.icon className="w-4 h-4" strokeWidth={1.5} />
                 </a>
               ))}
             </div>
-            <div className="flex gap-5 text-[11px] tracking-[0.4em] uppercase">
-              {["Instagram", "Pinterest", "Email"].map((l) => (
-                <a
-                  key={l}
-                  href="#"
-                  className="transition-colors hover:text-[var(--ivory)]"
+          </div>
+
+          {/* Link columns */}
+          {footerSections.map((section) => (
+            <div key={section.title}>
+              <h4
+                className="text-[12px] font-semibold tracking-[0.15em] uppercase mb-5"
+                style={{ color: "var(--cream)" }}
+              >
+                {section.title}
+              </h4>
+              <ul className="space-y-3">
+                {section.links.map((link) => (
+                  <li key={link}>
+                    <a
+                      href="#"
+                      className="text-[13px] transition-colors duration-200 hover:text-white"
+                      style={{ color: "color-mix(in oklab, var(--cream) 60%, transparent)" }}
+                    >
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          {/* Contact column */}
+          <div>
+            <h4
+              className="text-[12px] font-semibold tracking-[0.15em] uppercase mb-5"
+              style={{ color: "var(--cream)" }}
+            >
+              Contact Us
+            </h4>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "var(--gold-light)" }} strokeWidth={1.5} />
+                <span
+                  className="text-[13px] leading-[1.6]"
                   style={{ color: "color-mix(in oklab, var(--cream) 65%, transparent)" }}
                 >
-                  {l}
-                </a>
-              ))}
-            </div>
+                  BN Reddy Nagar,
+                  <br />
+                  Hyderabad, Telangana
+                </span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Phone className="w-4 h-4 shrink-0" style={{ color: "var(--gold-light)" }} strokeWidth={1.5} />
+                <span
+                  className="text-[13px]"
+                  style={{ color: "color-mix(in oklab, var(--cream) 65%, transparent)" }}
+                >
+                  +91 XXXXX XXXXX
+                </span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail className="w-4 h-4 shrink-0" style={{ color: "var(--gold-light)" }} strokeWidth={1.5} />
+                <span
+                  className="text-[13px]"
+                  style={{ color: "color-mix(in oklab, var(--cream) 65%, transparent)" }}
+                >
+                  info@vineethsilverjewellery.com
+                </span>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div className="shimmer-divider" />
-
+        {/* Bottom bar */}
         <div
-          className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] font-sans tracking-[0.3em] uppercase"
-          style={{ color: "color-mix(in oklab, var(--cream) 45%, transparent)" }}
+          className="pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] tracking-[0.06em]"
+          style={{
+            borderColor: "color-mix(in oklab, var(--cream) 12%, transparent)",
+            color: "color-mix(in oklab, var(--cream) 40%, transparent)",
+          }}
         >
-          <p>© {new Date().getFullYear()} Vineeth Silver Jewellery</p>
-          <p className="font-display italic normal-case tracking-normal text-sm" style={{ color: "var(--silver)" }}>
-            Crafted, in India.
+          <p>© {new Date().getFullYear()} Vineeth Silver Jewellery. All Rights Reserved.</p>
+          <p className="font-display italic text-sm" style={{ color: "var(--gold-light)" }}>
+            Crafted with ♥ in India
           </p>
-          <p>All rights reserved</p>
         </div>
       </div>
     </footer>

@@ -1,168 +1,204 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { Search, User, Heart, ShoppingBag, Menu, X, ChevronDown } from "lucide-react";
+import logo from "@/assets/logo.png";
 
-const links = [
-  { label: "Index", href: "/#index", id: "index" },
-  { label: "Collections", href: "/#collections", id: "collections" },
-  { label: "Gallery", href: "/#gallery", id: "gallery" },
-  { label: "About", href: "/#about", id: "about" },
-  { label: "Contact", href: "/#contact", id: "contact" },
+const navLinks = [
+  { label: "New Arrivals", href: "#featured" },
+  {
+    label: "Categories",
+    href: "#categories",
+    hasMega: true,
+    columns: [
+      {
+        title: "Neckwear",
+        items: ["Necklace Sets", "Chokers", "Long Necklaces", "Pendant Sets", "Layered Sets"],
+      },
+      {
+        title: "Earrings",
+        items: ["Chandbalis", "Jhumkas", "Studs & Tops", "Danglers & Drops", "Ear Cuffs"],
+      },
+      {
+        title: "Hand & Arm",
+        items: ["Bangles & Kadas", "Bracelets", "Rings", "Bajubandh"],
+      },
+      {
+        title: "Head & Hair",
+        items: ["Maang Tikka", "Passa", "Hair Accessories"],
+      },
+      {
+        title: "Accessories",
+        items: ["Nose Rings", "Waist Belts", "Anklets", "Brooches"],
+      },
+    ],
+  },
+  { label: "Collections", href: "#collections" },
+  { label: "Bridal", href: "#bridal" },
+  { label: "Daily Wear", href: "#daily-wear" },
 ];
 
 export function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [megaOpen, setMegaOpen] = useState<string | null>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mq = window.matchMedia("(max-width: 767px)");
-    const update = () => setIsMobile(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Track which section is in view to highlight in the rail
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const sections = links
-      .map((l) => document.querySelector(`#${l.id}`))
-      .filter((el): el is Element => !!el);
-    if (!sections.length) return;
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            const idx = links.findIndex((l) => l.id === e.target.id);
-            if (idx >= 0) setActiveIdx(idx);
-          }
-        });
-      },
-      { rootMargin: "-40% 0px -55% 0px", threshold: 0 },
-    );
-    sections.forEach((s) => io.observe(s));
-    return () => io.disconnect();
-  }, []);
-
-  const handleClick = (i: number) => {
-    setActiveIdx(i);
-    if (isMobile) setOpen(false);
-  };
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
 
   return (
-    <header className="fixed top-3 right-3 sm:top-6 sm:right-6 z-50">
-      <div
-        className="flex items-start gap-2 sm:gap-3"
-        onMouseEnter={() => !isMobile && setOpen(true)}
-        onMouseLeave={() => !isMobile && setOpen(false)}
-      >
-        {/* Section rail — horizontal on desktop (hover), vertical dropdown on mobile (tap) */}
-        <nav
-          aria-label="Section navigation"
-          className={[
-            "relative rounded-2xl sm:rounded-full backdrop-blur-xl overflow-hidden",
-            "border border-white/15 bg-[var(--chocolate)]/70 shadow-[0_8px_30px_rgba(0,0,0,0.35)]",
-            "transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-          ].join(" ")}
-        >
-          {/* Mobile toggle button (visible only when collapsed on mobile) */}
-          {isMobile && !open && (
-            <button
-              type="button"
-              onClick={() => setOpen(true)}
-              className="flex items-center gap-2 h-10 px-4 text-[10px] tracking-[0.32em] uppercase text-[var(--cream)]"
-              aria-label="Open menu"
-            >
-              <span>Menu</span>
-              <span className="flex flex-col gap-[3px]">
-                <span className="block h-px w-3.5 bg-[var(--cream)]" />
-                <span className="block h-px w-3.5 bg-[var(--cream)]" />
-                <span className="block h-px w-3.5 bg-[var(--cream)]" />
+    <>
+      <nav className={`ecom-nav ${scrolled ? "scrolled" : ""}`}>
+        <div className="ecom-nav__inner">
+          {/* Mobile hamburger */}
+          <button
+            type="button"
+            className="ecom-nav__icon-btn lg:hidden"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
+          >
+            <Menu className="w-5 h-5" strokeWidth={1.5} />
+          </button>
+
+          {/* Logo */}
+          <a href="#" className="flex items-center gap-2.5 shrink-0">
+            <img src={logo} alt="Vineeth Silver Jewellery" className="h-10 w-10 object-contain" />
+            <div className="hidden sm:block">
+              <p className="font-serif text-lg leading-none tracking-tight" style={{ color: "var(--chocolate)" }}>
+                Vineeth
+              </p>
+              <p className="text-[9px] tracking-[0.3em] uppercase mt-0.5" style={{ color: "var(--taupe)" }}>
+                Silver Jewellery
+              </p>
+            </div>
+          </a>
+
+          {/* Desktop links */}
+          <div className="ecom-nav__links">
+            {navLinks.map((link) => (
+              <div
+                key={link.label}
+                className="relative"
+                onMouseEnter={() => link.hasMega && setMegaOpen(link.label)}
+                onMouseLeave={() => link.hasMega && setMegaOpen(null)}
+              >
+                <a href={link.href} className="ecom-nav__link">
+                  {link.label}
+                  {link.hasMega && <ChevronDown className="w-3.5 h-3.5 opacity-50" />}
+                </a>
+              </div>
+            ))}
+          </div>
+
+          {/* Icons */}
+          <div className="ecom-nav__icons">
+            <button type="button" className="ecom-nav__icon-btn hidden sm:flex" aria-label="Search">
+              <Search className="w-[18px] h-[18px]" strokeWidth={1.5} />
+            </button>
+            <button type="button" className="ecom-nav__icon-btn hidden sm:flex" aria-label="Account">
+              <User className="w-[18px] h-[18px]" strokeWidth={1.5} />
+            </button>
+            <button type="button" className="ecom-nav__icon-btn" aria-label="Wishlist">
+              <Heart className="w-[18px] h-[18px]" strokeWidth={1.5} />
+            </button>
+            <button type="button" className="ecom-nav__icon-btn relative" aria-label="Cart">
+              <ShoppingBag className="w-[18px] h-[18px]" strokeWidth={1.5} />
+              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center"
+                style={{ background: "var(--gold-accent)", color: "white" }}>
+                0
               </span>
             </button>
-          )}
+          </div>
+        </div>
 
-          {/* Desktop horizontal collapsing list */}
-          {!isMobile && (
-            <ul className="relative flex items-center h-11 gap-1 px-2">
-              {links.map((l, i) => {
-                const isActive = i === activeIdx;
-                const visible = open || isActive;
-                return (
-                  <li
-                    key={l.label}
-                    className={[
-                      "transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                      visible
-                        ? "opacity-100 max-w-[180px]"
-                        : "opacity-0 max-w-0 overflow-hidden",
-                    ].join(" ")}
-                  >
-                    <a
-                      href={l.href}
-                      onClick={() => handleClick(i)}
-                      className={[
-                        "relative flex items-center h-9 px-4 rounded-full",
-                        "text-[10px] tracking-[0.32em] uppercase whitespace-nowrap",
-                        "transition-colors duration-300",
-                        isActive
-                          ? "bg-[var(--cream)]/10 text-[var(--cream)]"
-                          : "text-[color-mix(in_oklab,var(--cream)_65%,transparent)] hover:text-[var(--cream)]",
-                      ].join(" ")}
-                    >
-                      {l.label}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+        {/* Mega menu */}
+        {navLinks.filter((l) => l.hasMega).map((link) => (
+          <div
+            key={link.label}
+            className={`mega-menu ${megaOpen === link.label ? "is-open" : ""}`}
+            onMouseEnter={() => setMegaOpen(link.label)}
+            onMouseLeave={() => setMegaOpen(null)}
+          >
+            <div className="mega-menu__inner">
+              {link.columns?.map((col) => (
+                <div key={col.title} className="mega-menu__col">
+                  <h4>{col.title}</h4>
+                  {col.items.map((item) => (
+                    <a key={item} href="#">{item}</a>
+                  ))}
+                  <a href="#" className="mt-2 font-medium" style={{ color: "var(--gold-accent)" }}>
+                    View All
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </nav>
 
-          {/* Mobile expanded vertical list */}
-          {isMobile && open && (
-            <ul className="flex flex-col py-2 min-w-[180px]">
-              {links.map((l, i) => {
-                const isActive = i === activeIdx;
-                return (
-                  <li key={l.label}>
-                    <a
-                      href={l.href}
-                      onClick={() => handleClick(i)}
-                      className={[
-                        "flex items-center justify-between px-5 py-3",
-                        "text-[10px] tracking-[0.32em] uppercase whitespace-nowrap",
-                        "transition-colors duration-300",
-                        isActive
-                          ? "text-[var(--cream)]"
-                          : "text-[color-mix(in_oklab,var(--cream)_65%,transparent)]",
-                      ].join(" ")}
-                    >
-                      <span>{l.label}</span>
-                      {isActive && (
-                        <span
-                          className="h-px w-4 ml-3"
-                          style={{ background: "var(--silver)" }}
-                        />
-                      )}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </nav>
+      {/* Mobile menu */}
+      <div
+        className={`mobile-menu-overlay ${mobileOpen ? "is-open" : ""}`}
+        onClick={() => setMobileOpen(false)}
+      />
+      <div className={`mobile-menu-drawer ${mobileOpen ? "is-open" : ""}`}>
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-2">
+            <img src={logo} alt="VSJ" className="h-8 w-8 object-contain" />
+            <span className="font-serif text-lg" style={{ color: "var(--chocolate)" }}>Vineeth</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setMobileOpen(false)}
+            className="w-10 h-10 flex items-center justify-center"
+            aria-label="Close menu"
+          >
+            <X className="w-5 h-5" style={{ color: "var(--chocolate)" }} />
+          </button>
+        </div>
 
-        {/* Shiny Enquire button */}
-        <a
-          href="#contact"
-          className="enquire-btn group relative inline-flex items-center justify-center overflow-hidden rounded-full h-10 sm:h-11 px-4 sm:px-5 text-[10px] tracking-[0.32em] uppercase font-medium shrink-0"
-          style={{ color: "var(--chocolate)" }}
-        >
-          <span className="relative z-10">Enquire</span>
-          <span className="enquire-sheen pointer-events-none absolute inset-0 z-10" aria-hidden />
-        </a>
+        <div className="mb-6">
+          <div className="flex items-center gap-2 px-0 py-3 border-b" style={{ borderColor: "var(--beige)" }}>
+            <Search className="w-4 h-4" style={{ color: "var(--taupe)" }} strokeWidth={1.5} />
+            <input
+              type="text"
+              placeholder="Search jewellery..."
+              className="w-full bg-transparent text-sm outline-none"
+              style={{ color: "var(--chocolate)" }}
+            />
+          </div>
+        </div>
+
+        {navLinks.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            className="mobile-menu-drawer__link"
+            onClick={() => setMobileOpen(false)}
+          >
+            {link.label}
+          </a>
+        ))}
+
+        <div className="mt-8 pt-6 border-t" style={{ borderColor: "var(--beige)" }}>
+          <a href="#" className="mobile-menu-drawer__link flex items-center gap-3">
+            <User className="w-4 h-4" strokeWidth={1.5} /> My Account
+          </a>
+          <a href="#" className="mobile-menu-drawer__link flex items-center gap-3">
+            <Heart className="w-4 h-4" strokeWidth={1.5} /> Wishlist
+          </a>
+        </div>
       </div>
-    </header>
+    </>
   );
 }
