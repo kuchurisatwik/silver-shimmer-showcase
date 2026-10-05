@@ -8,55 +8,35 @@ const allImages = Object.entries(imageModules)
   .map(([, src]) => src);
 
 const categories = [
-  { name: "Necklaces", desc: "Nakshi, Victorian, Kundan, Temple, Bridal & Choker Sets.", img: allImages[1] },
-  { name: "Bangles & Bracelets", desc: "Traditional bangles, kadas, and everyday bracelets.", img: allImages[4] },
-  { name: "Earrings", desc: "Jhumkas, Chandbalis, Studs, Victorian & Temple Earrings.", img: allImages[7] },
-  { name: "Rings", desc: "Adjustable rings, statement rings, Victorian & Kundan designs.", img: allImages[10] },
+  { name: "Necklaces", desc: "Haaraams · Chokers", img: allImages[1] },
+  { name: "Earrings", desc: "Jhumkas · Chandbalis", img: allImages[7] },
+  { name: "Bangles", desc: "Kadas · Bracelets", img: allImages[4] },
+  { name: "Rings", desc: "Statement · Adjustable", img: allImages[10] },
+  { name: "Temple", desc: "Nakshi · Antique", img: allImages[9] },
+  { name: "Bridal", desc: "Sets · Vaddanams", img: allImages[2] },
 ];
-
-function SectionDivider({ title }: { title: string }) {
-  return (
-    <div className="section-divider">
-      <span className="section-divider__motif">✻</span>
-      <span className="section-divider__line" />
-      <span className="section-divider__title">{title}</span>
-      <span className="section-divider__line" />
-      <span className="section-divider__motif">✻</span>
-    </div>
-  );
-}
 
 export function ShopByCategory() {
   return (
-    <section id="categories" className="section-pad" style={{ background: "var(--beige)" }}>
+    <div id="categories" className="aa-catbar-wrap">
       <div className="container-wide">
-        <SectionDivider title="Shop By Category" />
-        <div className="text-center mt-6 mb-12">
-          <h2 className="display-md" style={{ color: "var(--chocolate)" }}>
-            Find Your Perfect Piece
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-7">
-          {categories.map((cat) => (
-            <a key={cat.name} href="#" className="category-card group">
-              <img
-                src={cat.img}
-                alt={cat.name}
-                className="category-card__img"
-                loading="lazy"
-              />
-              <p className="category-card__name">{cat.name}</p>
-            </a>
-          ))}
-        </div>
-
-        <div className="text-center mt-10">
-          <a href="#" className="cta-btn cta-btn--primary">
-            View All
-          </a>
+        <div className="aa-catbar reveal">
+          <div className="text-center mb-2.5 sm:mb-3">
+            <span className="aa-eyebrow">Shop by Category</span>
+          </div>
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-x-3 gap-y-5 sm:gap-5">
+            {categories.map((cat) => (
+              <a key={cat.name} href="#collections" className="aa-cat">
+                <img src={cat.img} alt={cat.name} className="aa-cat__img" loading="lazy" />
+                <span className="aa-cat__text">
+                  <span className="aa-cat__label">{cat.name}</span>
+                  <span className="aa-cat__desc">{cat.desc}</span>
+                </span>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

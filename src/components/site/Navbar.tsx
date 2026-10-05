@@ -3,85 +3,97 @@ import { Search, User, Heart, ShoppingBag, Menu, X, ChevronDown } from "lucide-r
 import logo from "@/assets/logo.png";
 
 const navLinks = [
-  { label: "New Arrivals", href: "#featured" },
+  { label: "New Arrivals", href: "#new-arrivals" },
   {
-    label: "Categories",
-    href: "#categories",
+    label: "Collections",
+    href: "#collections",
     hasMega: true,
     columns: [
       {
         title: "Neckwear",
-        items: ["Necklace Sets", "Chokers", "Long Necklaces", "Pendant Sets", "Layered Sets"],
+        items: ["Necklace Sets", "Chokers", "Long Haaraams", "Pendant Sets", "Layered Sets"],
       },
       {
         title: "Earrings",
         items: ["Chandbalis", "Jhumkas", "Studs & Tops", "Danglers & Drops", "Ear Cuffs"],
       },
-      {
-        title: "Hand & Arm",
-        items: ["Bangles & Kadas", "Bracelets", "Rings", "Bajubandh"],
-      },
-      {
-        title: "Head & Hair",
-        items: ["Maang Tikka", "Passa", "Hair Accessories"],
-      },
-      {
-        title: "Accessories",
-        items: ["Nose Rings", "Waist Belts", "Anklets", "Brooches"],
-      },
+      { title: "Hand & Arm", items: ["Bangles & Kadas", "Bracelets", "Rings", "Bajubandh"] },
+      { title: "Collections", items: ["Temple", "Nakshi", "Victorian", "Kundan", "Diamond"] },
+      { title: "Occasion", items: ["Bridal", "Festive", "Daily Wear", "Gifting"] },
     ],
   },
-  { label: "Collections", href: "#collections" },
+  { label: "Temple", href: "#temple-collection" },
   { label: "Bridal", href: "#bridal" },
   { label: "Daily Wear", href: "#daily-wear" },
 ];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [onDark, setOnDark] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState<string | null>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    // Sections flagged with data-nav-dark get light nav text when they sit under the bar.
+    const darkEls = Array.from(document.querySelectorAll<HTMLElement>("[data-nav-dark]"));
+    const probe = 30; // ~ the navbar's vertical centre
+
+    const update = () => {
+      setScrolled(window.scrollY > 20);
+      let dark = false;
+      for (const el of darkEls) {
+        const r = el.getBoundingClientRect();
+        if (r.top <= probe && r.bottom >= probe) {
+          dark = true;
+          break;
+        }
+      }
+      setOnDark(dark);
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
       document.body.style.overflow = "";
-    }
-    return () => { document.body.style.overflow = ""; };
+    };
   }, [mobileOpen]);
 
   return (
     <>
-      <nav className={`ecom-nav ${scrolled ? "scrolled" : ""}`}>
+      <nav className={`ecom-nav aa-nav ${scrolled ? "scrolled" : ""} ${onDark ? "on-dark" : "on-light"}`}>
         <div className="ecom-nav__inner">
-          {/* Mobile hamburger */}
-          <button
-            type="button"
-            className="ecom-nav__icon-btn lg:hidden"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Open menu"
-          >
-            <Menu className="w-5 h-5" strokeWidth={1.5} />
-          </button>
+          {/* Left: hamburger + wordmark */}
+          <div className="ecom-nav__left">
+            <button
+              type="button"
+              className="ecom-nav__icon-btn lg:hidden"
+              onClick={() => setMobileOpen(true)}
+              aria-label="Open menu"
+            >
+              <Menu className="w-5 h-5" strokeWidth={1.5} />
+            </button>
 
-          {/* Logo */}
-          <a href="#" className="flex items-center gap-2.5 shrink-0">
-            <img src={logo} alt="Vineeth Silver Jewellery" className="h-10 w-10 object-contain" />
-            <div className="hidden sm:block">
-              <p className="font-serif text-lg leading-none tracking-tight" style={{ color: "var(--chocolate)" }}>
-                Vineeth
-              </p>
-              <p className="text-[9px] tracking-[0.3em] uppercase mt-0.5" style={{ color: "var(--taupe)" }}>
-                Silver Jewellery
-              </p>
-            </div>
-          </a>
+            <a
+              href="#hero"
+              className="flex flex-col items-start justify-center leading-none shrink-0"
+            >
+              <span className="aa-wordmark" style={{ fontSize: "22px" }}>
+                VINEETH
+              </span>
+              <span className="aa-wordmark-sub" style={{ fontSize: "8px", marginTop: "3px" }}>
+                SILVER JEWELLERY
+              </span>
+            </a>
+          </div>
 
           {/* Desktop links */}
           <div className="ecom-nav__links">
@@ -105,7 +117,11 @@ export function Navbar() {
             <button type="button" className="ecom-nav__icon-btn hidden sm:flex" aria-label="Search">
               <Search className="w-[18px] h-[18px]" strokeWidth={1.5} />
             </button>
-            <button type="button" className="ecom-nav__icon-btn hidden sm:flex" aria-label="Account">
+            <button
+              type="button"
+              className="ecom-nav__icon-btn hidden sm:flex"
+              aria-label="Account"
+            >
               <User className="w-[18px] h-[18px]" strokeWidth={1.5} />
             </button>
             <button type="button" className="ecom-nav__icon-btn" aria-label="Wishlist">
@@ -113,8 +129,10 @@ export function Navbar() {
             </button>
             <button type="button" className="ecom-nav__icon-btn relative" aria-label="Cart">
               <ShoppingBag className="w-[18px] h-[18px]" strokeWidth={1.5} />
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center"
-                style={{ background: "var(--gold-accent)", color: "white" }}>
+              <span
+                className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center"
+                style={{ background: "var(--gold-accent)", color: "white" }}
+              >
                 0
               </span>
             </button>
@@ -122,28 +140,36 @@ export function Navbar() {
         </div>
 
         {/* Mega menu */}
-        {navLinks.filter((l) => l.hasMega).map((link) => (
-          <div
-            key={link.label}
-            className={`mega-menu ${megaOpen === link.label ? "is-open" : ""}`}
-            onMouseEnter={() => setMegaOpen(link.label)}
-            onMouseLeave={() => setMegaOpen(null)}
-          >
-            <div className="mega-menu__inner">
-              {link.columns?.map((col) => (
-                <div key={col.title} className="mega-menu__col">
-                  <h4>{col.title}</h4>
-                  {col.items.map((item) => (
-                    <a key={item} href="#">{item}</a>
-                  ))}
-                  <a href="#" className="mt-2 font-medium" style={{ color: "var(--gold-accent)" }}>
-                    View All
-                  </a>
-                </div>
-              ))}
+        {navLinks
+          .filter((l) => l.hasMega)
+          .map((link) => (
+            <div
+              key={link.label}
+              className={`mega-menu ${megaOpen === link.label ? "is-open" : ""}`}
+              onMouseEnter={() => setMegaOpen(link.label)}
+              onMouseLeave={() => setMegaOpen(null)}
+            >
+              <div className="mega-menu__inner">
+                {link.columns?.map((col) => (
+                  <div key={col.title} className="mega-menu__col">
+                    <h4>{col.title}</h4>
+                    {col.items.map((item) => (
+                      <a key={item} href="#collections">
+                        {item}
+                      </a>
+                    ))}
+                    <a
+                      href="#collections"
+                      className="mt-2 font-medium"
+                      style={{ color: "var(--gold-accent)" }}
+                    >
+                      View All
+                    </a>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </nav>
 
       {/* Mobile menu */}
@@ -155,7 +181,9 @@ export function Navbar() {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-2">
             <img src={logo} alt="VSJ" className="h-8 w-8 object-contain" />
-            <span className="font-serif text-lg" style={{ color: "var(--chocolate)" }}>Vineeth</span>
+            <span className="font-serif text-lg" style={{ color: "var(--chocolate)" }}>
+              Vineeth
+            </span>
           </div>
           <button
             type="button"
@@ -168,7 +196,10 @@ export function Navbar() {
         </div>
 
         <div className="mb-6">
-          <div className="flex items-center gap-2 px-0 py-3 border-b" style={{ borderColor: "var(--beige)" }}>
+          <div
+            className="flex items-center gap-2 px-0 py-3 border-b"
+            style={{ borderColor: "var(--beige)" }}
+          >
             <Search className="w-4 h-4" style={{ color: "var(--taupe)" }} strokeWidth={1.5} />
             <input
               type="text"

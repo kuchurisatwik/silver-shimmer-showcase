@@ -1,105 +1,120 @@
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
+const details = [
+  { icon: MapPin, title: "Our Location", lines: ["BN Reddy Nagar", "Hyderabad, Telangana"] },
+  { icon: Phone, title: "Call Us", lines: ["+91 XXXXX XXXXX"] },
+  { icon: Mail, title: "Email", lines: ["info@vineethsilverjewellery.com"] },
+  { icon: Clock, title: "Store Timings", lines: ["Monday – Sunday", "11:00 AM – 9:00 PM"] },
+];
+
 export function VisitStore() {
   return (
     <section id="visit" className="section-pad" style={{ background: "var(--cream)" }}>
       <div className="container-wide">
-        <div className="section-divider mb-6">
-          <span className="section-divider__motif">✻</span>
-          <span className="section-divider__line" />
-          <span className="section-divider__title">Visit Our Store</span>
-          <span className="section-divider__line" />
-          <span className="section-divider__motif">✻</span>
-        </div>
-
-        <div className="text-center mt-4 mb-12">
-          <h2 className="display-md" style={{ color: "var(--chocolate)" }}>
-            Experience The Collection In Person
-          </h2>
-          <p className="text-[14px] mt-3 max-w-lg mx-auto" style={{ color: "var(--muted-foreground)" }}>
-            Visit our showroom and explore our latest collections with personalised assistance.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Address */}
-          <div className="text-center p-6 rounded-lg" style={{ background: "var(--beige)" }}>
-            <div
-              className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
-              style={{ background: "color-mix(in oklab, var(--gold-accent) 15%, transparent)" }}
-            >
-              <MapPin className="w-5 h-5" style={{ color: "var(--gold-accent)" }} strokeWidth={1.5} />
-            </div>
-            <h3 className="font-display text-lg mb-2" style={{ color: "var(--chocolate)" }}>
-              Our Location
-            </h3>
-            <p className="text-[13px] leading-[1.7]" style={{ color: "var(--muted-foreground)" }}>
-              BN Reddy Nagar,
-              <br />
-              Hyderabad, Telangana
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          {/* Details */}
+          <div className="reveal">
+            <span className="aa-eyebrow">Visit Us</span>
+            <h2 className="aa-title" style={{ marginTop: "16px" }}>
+              Experience it in Person
+            </h2>
+            <p className="aa-sub" style={{ marginTop: "14px" }}>
+              Explore our latest collections with personalised assistance at our Hyderabad showroom.
             </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
+              {details.map((d) => (
+                <div key={d.title} className="flex items-start gap-3.5">
+                  <div
+                    className="flex items-center justify-center rounded-full shrink-0"
+                    style={{
+                      width: "42px",
+                      height: "42px",
+                      border: "1px solid var(--aa-hair)",
+                      color: "var(--gold-accent)",
+                    }}
+                  >
+                    <d.icon className="w-[18px] h-[18px]" strokeWidth={1.4} />
+                  </div>
+                  <div>
+                    <h3
+                      className="font-display"
+                      style={{ fontSize: "18px", color: "var(--chocolate)", lineHeight: 1.2 }}
+                    >
+                      {d.title}
+                    </h3>
+                    {d.lines.map((l) => (
+                      <p
+                        key={l}
+                        style={{
+                          fontFamily: "var(--font-sans)",
+                          fontSize: "13px",
+                          color: "var(--muted-foreground)",
+                          lineHeight: 1.7,
+                        }}
+                      >
+                        {l}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <a
+              href="https://maps.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="aa-btn aa-btn--dark"
+              style={{ marginTop: "36px" }}
+            >
+              Get Directions
+            </a>
           </div>
 
-          {/* Phone */}
-          <div className="text-center p-6 rounded-lg" style={{ background: "var(--beige)" }}>
-            <div
-              className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
-              style={{ background: "color-mix(in oklab, var(--gold-accent) 15%, transparent)" }}
-            >
-              <Phone className="w-5 h-5" style={{ color: "var(--gold-accent)" }} strokeWidth={1.5} />
-            </div>
-            <h3 className="font-display text-lg mb-2" style={{ color: "var(--chocolate)" }}>
-              Call Us
-            </h3>
-            <p className="text-[13px] leading-[1.7]" style={{ color: "var(--muted-foreground)" }}>
-              +91 XXXXX XXXXX
-            </p>
-          </div>
-
-          {/* Email */}
-          <div className="text-center p-6 rounded-lg" style={{ background: "var(--beige)" }}>
-            <div
-              className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
-              style={{ background: "color-mix(in oklab, var(--gold-accent) 15%, transparent)" }}
-            >
-              <Mail className="w-5 h-5" style={{ color: "var(--gold-accent)" }} strokeWidth={1.5} />
-            </div>
-            <h3 className="font-display text-lg mb-2" style={{ color: "var(--chocolate)" }}>
-              Email Us
-            </h3>
-            <p className="text-[13px] leading-[1.7]" style={{ color: "var(--muted-foreground)" }}>
-              info@vineethsilverjewellery.com
-            </p>
-          </div>
-
-          {/* Timings */}
-          <div className="text-center p-6 rounded-lg" style={{ background: "var(--beige)" }}>
-            <div
-              className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
-              style={{ background: "color-mix(in oklab, var(--gold-accent) 15%, transparent)" }}
-            >
-              <Clock className="w-5 h-5" style={{ color: "var(--gold-accent)" }} strokeWidth={1.5} />
-            </div>
-            <h3 className="font-display text-lg mb-2" style={{ color: "var(--chocolate)" }}>
-              Store Timings
-            </h3>
-            <p className="text-[13px] leading-[1.7]" style={{ color: "var(--muted-foreground)" }}>
-              Monday – Sunday
-              <br />
-              11:00 AM – 9:00 PM
-            </p>
-          </div>
-        </div>
-
-        <div className="text-center mt-10">
-          <a
-            href="https://maps.google.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cta-btn cta-btn--primary"
+          {/* Map placeholder */}
+          <div
+            className="relative reveal overflow-hidden"
+            style={{
+              borderRadius: "14px",
+              background: "var(--champagne)",
+              aspectRatio: "4 / 3",
+              border: "1px solid var(--aa-hair)",
+            }}
           >
-            Get Directions
-          </a>
+            <svg
+              className="absolute inset-0 w-full h-full"
+              style={{ opacity: 0.5 }}
+              aria-hidden="true"
+            >
+              <defs>
+                <pattern id="mapgrid" width="56" height="56" patternUnits="userSpaceOnUse">
+                  <path d="M56 0 L0 0 0 56" fill="none" stroke="var(--aa-hair)" strokeWidth="1" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#mapgrid)" />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <svg width="34" height="44" viewBox="0 0 34 44" aria-hidden="true">
+                <path
+                  d="M17 2 C8 2 2 9 2 17 c0 10 15 25 15 25 s15 -15 15 -25 C32 9 26 2 17 2 Z"
+                  fill="var(--kumkum)"
+                />
+                <circle cx="17" cy="17" r="6" fill="var(--cream)" />
+              </svg>
+              <p
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "12px",
+                  letterSpacing: "0.08em",
+                  color: "var(--taupe)",
+                  marginTop: "10px",
+                }}
+              >
+                BN Reddy Nagar, Hyderabad
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

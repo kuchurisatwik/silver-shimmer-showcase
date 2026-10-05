@@ -1,113 +1,80 @@
-import { useRef } from "react";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { Star } from "lucide-react";
+import { SectionHeading, LineLink } from "./ui";
 
 const reviews = [
   {
-    text: "Beautiful collection and excellent service. The necklace set I ordered was exactly as shown and the quality is outstanding. Will definitely order again!",
+    text: "Beautiful collection and excellent service. The necklace set was exactly as shown and the quality is outstanding.",
     author: "Priya Sharma",
     location: "Hyderabad",
-    rating: 5,
   },
   {
-    text: "Loved the quality and finishing of the jewellery. Bought a temple set for my daughter's wedding and everyone complimented it. Vineeth Silver is now my go-to!",
+    text: "Loved the quality and finishing. Bought a temple set for my daughter's wedding and everyone complimented it.",
     author: "Lakshmi Reddy",
     location: "Bangalore",
-    rating: 5,
   },
   {
-    text: "Perfect jewellery for weddings and special occasions. The Kundan set was breathtaking. Packaging was also premium. Highly recommended!",
+    text: "Perfect jewellery for special occasions. The Kundan set was breathtaking and the packaging felt premium.",
     author: "Ananya Iyer",
     location: "Chennai",
-    rating: 5,
-  },
-  {
-    text: "Amazing craftsmanship! The Victorian earrings I got are so elegant and comfortable to wear. The silver quality is genuine and hallmarked.",
-    author: "Meera Nair",
-    location: "Kochi",
-    rating: 5,
-  },
-  {
-    text: "Ordered a daily wear bracelet and it's beautiful. Minimalist yet elegant. The customer service was very helpful in helping me choose the right size.",
-    author: "Kavitha Rao",
-    location: "Visakhapatnam",
-    rating: 5,
   },
 ];
 
 export function CustomerReviews() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (dir: "left" | "right") => {
-    if (!scrollRef.current) return;
-    const amount = 360;
-    scrollRef.current.scrollBy({ left: dir === "left" ? -amount : amount, behavior: "smooth" });
-  };
-
   return (
     <section id="reviews" className="section-pad" style={{ background: "var(--beige)" }}>
       <div className="container-wide">
-        <div className="section-divider mb-6">
-          <span className="section-divider__motif">✻</span>
-          <span className="section-divider__line" />
-          <span className="section-divider__title">Hear From Our Customers</span>
-          <span className="section-divider__line" />
-          <span className="section-divider__motif">✻</span>
-        </div>
+        <SectionHeading
+          eyebrow="Kind Words"
+          title="Loved Across Celebrations"
+          subtitle="The trust of our customers inspires everything we do"
+        />
 
-        <div className="text-center mt-4 mb-10">
-          <h2 className="display-md" style={{ color: "var(--chocolate)" }}>
-            Loved By Customers Across Celebrations
-          </h2>
-          <p className="text-[14px] mt-3 max-w-lg mx-auto" style={{ color: "var(--muted-foreground)" }}>
-            The trust and happiness of our customers inspire everything we do.
-          </p>
-        </div>
-
-        <div className="relative">
-          <button
-            type="button"
-            className="carousel-arrow carousel-arrow--left hidden md:flex"
-            onClick={() => scroll("left")}
-            aria-label="Previous reviews"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-
-          <div
-            ref={scrollRef}
-            className="flex gap-5 overflow-x-auto pb-4 scroll-smooth"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            {reviews.map((review) => (
-              <div key={review.author} className="review-card">
-                <div className="review-card__stars">
-                  {Array.from({ length: review.rating }).map((_, i) => (
-                    <Star key={i} className="inline w-4 h-4 fill-current" />
-                  ))}
-                </div>
-                <p className="review-card__text">"{review.text}"</p>
-                <div className="flex items-center justify-between">
-                  <p className="review-card__author">{review.author}</p>
-                  <p className="text-[11px]" style={{ color: "var(--taupe)" }}>{review.location}</p>
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mt-8 sm:mt-11">
+          {reviews.map((r) => (
+            <div
+              key={r.author}
+              className="reveal"
+              style={{
+                background: "#fff",
+                borderRadius: "14px",
+                padding: "clamp(26px, 3vw, 36px)",
+                boxShadow: "var(--aa-shadow-sm)",
+              }}
+            >
+              <div className="flex gap-1" style={{ color: "var(--gold-accent)" }}>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-current" strokeWidth={0} />
+                ))}
               </div>
-            ))}
-          </div>
-
-          <button
-            type="button"
-            className="carousel-arrow carousel-arrow--right hidden md:flex"
-            onClick={() => scroll("right")}
-            aria-label="Next reviews"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
+              <p
+                className="font-display"
+                style={{
+                  fontStyle: "italic",
+                  fontSize: "19px",
+                  lineHeight: 1.6,
+                  color: "var(--chocolate)",
+                  margin: "18px 0 22px",
+                }}
+              >
+                “{r.text}”
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "11px",
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: "var(--taupe)",
+                }}
+              >
+                — {r.author}, {r.location}
+              </p>
+            </div>
+          ))}
         </div>
 
-        <div className="text-center mt-8">
-          <a href="#" className="cta-btn cta-btn--outline">
-            View More Reviews
-          </a>
+        <div className="text-center mt-8 sm:mt-10">
+          <LineLink href="#">Read more reviews</LineLink>
         </div>
       </div>
     </section>

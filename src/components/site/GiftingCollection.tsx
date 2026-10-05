@@ -9,45 +9,49 @@ const allImages = Object.entries(imageModules)
 
 export function GiftingCollection() {
   return (
-    <section id="gifting">
-      {/* Full-width banner */}
-      <div className="feature-banner" style={{ minHeight: "450px" }}>
-        <img
-          src={allImages[16] || ""}
-          alt="Gifting Collection"
-          className="feature-banner__bg"
-          loading="lazy"
-        />
-        <div
-          className="feature-banner__overlay"
+    <section id="gifting" className="relative min-h-[320px] lg:min-h-[440px] overflow-hidden group">
+      <img
+        src={allImages[16] || ""}
+        alt="Gifting silver jewellery"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-105"
+        loading="lazy"
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to top, color-mix(in oklab, var(--chocolate) 78%, transparent), color-mix(in oklab, var(--chocolate) 20%, transparent) 70%, transparent)",
+        }}
+      />
+      <div className="relative h-full flex flex-col items-center justify-center text-center px-6 py-14 reveal">
+        <span className="aa-eyebrow" style={{ color: "var(--gold-light)" }}>
+          Gifting
+        </span>
+        <h3
+          className="font-display"
           style={{
-            background: "linear-gradient(to left, color-mix(in oklab, var(--chocolate) 70%, transparent) 0%, color-mix(in oklab, var(--chocolate) 30%, transparent) 50%, transparent 100%)",
+            color: "var(--cream)",
+            fontWeight: 300,
+            fontSize: "clamp(28px, 3.4vw, 40px)",
+            marginTop: "12px",
           }}
-        />
-        <div className="feature-banner__content" style={{ marginLeft: "auto", textAlign: "right" }}>
-          <div className="section-divider justify-end mb-6">
-            <span className="section-divider__motif">✻</span>
-            <span className="section-divider__line" />
-            <span className="section-divider__title">Gifting</span>
-            <span className="section-divider__line" />
-            <span className="section-divider__motif" style={{ color: "var(--gold-light)" }}>✻</span>
-          </div>
-          <h2
-            className="font-display text-3xl sm:text-4xl md:text-5xl leading-[1.1] mb-5"
-            style={{ color: "var(--cream)" }}
-          >
-            Gifts They'll Always Remember
-          </h2>
-          <p
-            className="text-[14px] sm:text-[15px] leading-[1.8] ml-auto max-w-md mb-8"
-            style={{ color: "color-mix(in oklab, var(--cream) 80%, transparent)" }}
-          >
-            Celebrate birthdays, anniversaries, weddings, and life's special moments with jewellery that will always be cherished.
-          </p>
-          <a href="#" className="cta-btn cta-btn--light">
-            Explore Gifts
-          </a>
-        </div>
+        >
+          Gifts to Cherish
+        </h3>
+        <p
+          className="font-display"
+          style={{
+            fontStyle: "italic",
+            color: "color-mix(in oklab, var(--cream) 84%, transparent)",
+            fontSize: "18px",
+            marginTop: "8px",
+          }}
+        >
+          For birthdays, anniversaries &amp; milestones
+        </p>
+        <a href="#" className="aa-link" style={{ color: "var(--cream)", marginTop: "22px" }}>
+          Explore Gifts
+        </a>
       </div>
     </section>
   );

@@ -7,41 +7,68 @@ const allImages = Object.entries(imageModules)
   .sort(([a], [b]) => a.localeCompare(b))
   .map(([, src]) => src);
 
+const craftPoints = [
+  { n: "01", label: "Lost-wax casting" },
+  { n: "02", label: "Hand-set kemp stones" },
+  { n: "03", label: "Goddess motifs" },
+];
+
 export function TempleCollection() {
   return (
-    <section id="temple-collection" className="section-pad" style={{ background: "var(--cream)" }}>
+    <section id="temple-collection" className="section-pad aa-dark" data-nav-dark>
       <div className="container-wide">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {/* Image */}
-          <div className="relative overflow-hidden rounded-md aspect-[4/5]" style={{ background: "var(--beige)" }}>
-            <img
-              src={allImages[9] || ""}
-              alt="Temple Collection"
-              className="w-full h-full object-cover transition-transform duration-[1200ms] hover:scale-105"
-              loading="lazy"
-            />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+          {/* Arched detail image */}
+          <div className="group reveal w-full mx-auto order-1" style={{ maxWidth: "440px" }}>
+            <div className="aa-arch" style={{ aspectRatio: "4 / 5" }}>
+              <img src={allImages[9] || ""} alt="Temple jewellery detail" loading="lazy" />
+            </div>
           </div>
 
-          {/* Text */}
-          <div className="py-4">
-            <div className="section-divider justify-start mb-6">
-              <span className="section-divider__motif">✻</span>
-              <span className="section-divider__line" />
-              <span className="section-divider__title">Temple Collection</span>
-              <span className="section-divider__line" />
-              <span className="section-divider__motif">✻</span>
-            </div>
-            <h2 className="display-md mb-5" style={{ color: "var(--chocolate)" }}>
-              Inspired By Tradition
+          {/* Story */}
+          <div className="reveal order-2">
+            <span className="aa-eyebrow">Heritage · The Craft</span>
+            <h2 className="aa-title" style={{ color: "var(--cream)", marginTop: "16px" }}>
+              The Art of Temple Jewellery
             </h2>
-            <p className="text-[15px] leading-[1.85] mb-4 max-w-md" style={{ color: "var(--muted-foreground)" }}>
-              Celebrate timeless craftsmanship with jewellery rooted in culture, heritage, and tradition.
+            <p className="aa-sub" style={{ marginTop: "14px" }}>
+              Lost-wax casting, hand-set kemp stones and Goddess Lakshmi motifs — the quiet devotion
+              in every piece we make.
             </p>
-            <p className="text-[15px] leading-[1.85] mb-8 max-w-md" style={{ color: "var(--muted-foreground)" }}>
-              Perfect for weddings, festivals, and special occasions.
-            </p>
-            <a href="#" className="cta-btn cta-btn--primary">
-              Explore Collection
+
+            <div
+              className="grid grid-cols-3 gap-5 sm:gap-6 mt-10 pt-8"
+              style={{ borderTop: "1px solid color-mix(in oklab, var(--cream) 18%, transparent)" }}
+            >
+              {craftPoints.map((c) => (
+                <div key={c.n}>
+                  <p
+                    className="font-display"
+                    style={{
+                      fontSize: "28px",
+                      fontWeight: 300,
+                      color: "var(--gold-light)",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {c.n}
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "13px",
+                      marginTop: "10px",
+                      color: "color-mix(in oklab, var(--cream) 80%, transparent)",
+                    }}
+                  >
+                    {c.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <a href="#" className="aa-btn aa-btn--gold" style={{ marginTop: "40px" }}>
+              Discover the Craft
             </a>
           </div>
         </div>

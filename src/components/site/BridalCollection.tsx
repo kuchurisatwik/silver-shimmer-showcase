@@ -9,53 +9,32 @@ const allImages = Object.entries(imageModules)
 
 export function BridalCollection() {
   return (
-    <section id="bridal">
-      {/* Section divider */}
-      <div className="py-6" style={{ background: "var(--cream)" }}>
-        <div className="section-divider">
-          <span className="section-divider__motif">✻</span>
-          <span className="section-divider__line" />
-          <span className="section-divider__title">Bridal Collection</span>
-          <span className="section-divider__line" />
-          <span className="section-divider__motif">✻</span>
-        </div>
-      </div>
-
-      {/* Full-width banner */}
-      <div className="feature-banner" style={{ minHeight: "520px" }}>
+    <section id="bridal" className="grid grid-cols-1 lg:grid-cols-2 items-stretch">
+      {/* Image */}
+      <div className="relative min-h-[340px] lg:min-h-[600px] overflow-hidden group">
         <img
           src={allImages[2] || ""}
-          alt="Bridal Collection"
-          className="feature-banner__bg"
+          alt="Bridal silver jewellery"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-105"
           loading="lazy"
         />
-        <div
-          className="feature-banner__overlay"
-          style={{
-            background: "linear-gradient(to right, color-mix(in oklab, var(--chocolate) 70%, transparent) 0%, color-mix(in oklab, var(--chocolate) 30%, transparent) 50%, transparent 100%)",
-          }}
-        />
-        <div className="feature-banner__content">
-          <p
-            className="text-[11px] tracking-[0.4em] uppercase mb-4 font-medium"
-            style={{ color: "var(--gold-light)" }}
-          >
-            For Your Special Day
-          </p>
-          <h2
-            className="font-display text-4xl sm:text-5xl md:text-6xl leading-[1.05] mb-5"
-            style={{ color: "var(--cream)" }}
-          >
-            Jewellery For Your Special Day
+      </div>
+
+      {/* Text panel */}
+      <div
+        className="flex items-center justify-center px-6 py-14 sm:px-10 sm:py-20 reveal"
+        style={{ background: "var(--champagne)" }}
+      >
+        <div className="max-w-md text-center">
+          <span className="aa-eyebrow">Bridal</span>
+          <h2 className="aa-title" style={{ marginTop: "16px" }}>
+            Jewellery for Your Special Day
           </h2>
-          <p
-            className="text-[14px] sm:text-[15px] leading-[1.8] max-w-md mb-8"
-            style={{ color: "color-mix(in oklab, var(--cream) 80%, transparent)" }}
-          >
-            From bridal sets and layered haarams to chokers, maang tikkas, vaddanams, and bridal bangles — discover jewellery designed to complete your wedding look.
+          <p className="aa-sub" style={{ marginTop: "14px" }}>
+            Sets, haaraams, chokers &amp; vaddanams — crafted to complete your wedding look.
           </p>
-          <a href="#" className="cta-btn cta-btn--light">
-            Shop Bridal Collection
+          <a href="#" className="aa-btn aa-btn--outline" style={{ marginTop: "32px" }}>
+            Shop Bridal
           </a>
         </div>
       </div>
